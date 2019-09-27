@@ -30,24 +30,12 @@ public class ContributoNazione implements Serializable{
         this.aid_instr = aid_instr;
         this.contributo=contributo;
     }
-
-    public char getFreq() {
-        return freq;
-    }
-
-    public String getGeo() {
-        return geo;
-    }
-
+    //metodi get
+    public char getFreq() { return freq; }
+    public String getGeo() { return geo; }
     public String getUnit() { return unit;}
-
-    public String getAid_instr() {
-        return aid_instr;
-    }
-
-    public double[] getContributo() {
-        return contributo;
-    }
+    public String getAid_instr() { return aid_instr; }
+    public double[] getContributo() { return contributo; }
 
     /**
      * Metodo toString per stampare l'oggetto
@@ -63,7 +51,7 @@ public class ContributoNazione implements Serializable{
                 ", unit='" + unit + '\'' +
                 ", aid_instr='" + aid_instr + '\'');
         for(int i=0; i<intervalloAnni; i++ ) s.append(" anno=").append(2000 + i).append(" contributo=").append(contributo[i]).append(";");
-        s.append('}');
+        s.append('}');//ciclo per accodare i valori annuali alla stringa di ritorno
         return s.toString();
     }
 }

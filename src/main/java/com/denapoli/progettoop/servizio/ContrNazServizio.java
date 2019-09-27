@@ -2,19 +2,11 @@ package com.denapoli.progettoop.servizio;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
 import org.springframework.boot.json.BasicJsonParser;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 import static com.denapoli.progettoop.modello.ContributoNazione.intervalloAnni;
@@ -42,11 +34,11 @@ public class ContrNazServizio {
         }
     }
 
-    private void parsing(String coll) throws IOException {
+    private void parsing(String colleg) throws IOException {
         // Inizializzazione buffer per il parsing
         BufferedReader bffr = null;
         try {
-            URLConnection connessione = new URL(coll).openConnection();   // avvia la connessione all'url preso come parametro
+            URLConnection connessione = new URL(colleg).openConnection();   // avvia la connessione all'url preso come parametro
             connessione.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"); // aggiungo user-agent
             bffr = new BufferedReader(new InputStreamReader(connessione.getInputStream())); //nuovo buffer per leggere il json ottenuto dell'url
             String json = bffr.readLine();    // leggo dal buffer il json che so trova su una riga e lo salvo su una stringa
@@ -98,4 +90,14 @@ public class ContrNazServizio {
             if (bffr != null) bffr.close();
         }
     }
+
+    /**
+     * Restituisce il dataset completo
+     *
+     * @return tutta la lista di oggetti
+     */
+    public List getData() {
+        return contributi;
+    }
+
 }
