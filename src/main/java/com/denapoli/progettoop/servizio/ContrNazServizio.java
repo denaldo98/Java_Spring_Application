@@ -3,13 +3,14 @@ package com.denapoli.progettoop.servizio;
 import com.denapoli.progettoop.modello.ContributoNazione;
 import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.stereotype.Service;
+
 import java.io.*;
+import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
 
 import static com.denapoli.progettoop.modello.ContributoNazione.intervalloAnni;
 
@@ -20,18 +21,18 @@ import static com.denapoli.progettoop.modello.ContributoNazione.intervalloAnni;
 @Service
 public class ContrNazServizio {
 
-    private List<ContributoNazione> contributi = new ArrayList<>();
-    private List<Map> metadati = new ArrayList<>();//lista per i metadati
+    private List<ContributoNazione> contributi = new ArrayList<>(); //lista degli oggetti
+    private List<Map> metadati = new ArrayList<>(); //lista per i metadati
 
     /**
      * Costruttore per caricare il dataset facendo il parsing del csv
      */
     public ContrNazServizio() {
         String fileSeriale = "dataset.ser";
-        if (Files.exists(Paths.get(fileSeriale))) {
+        if (Files.exists(Paths.get(fileSeriale))) { //carico parsing precedente da file seriale cache
             caricaSeriale(fileSeriale);
             System.out.println("Dataset caricato da file seriale");
-        } else {
+        } else { //parsing da remoto
             String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA"; // url sulla mail
             try {
                 parsing(url);
@@ -45,13 +46,13 @@ public class ContrNazServizio {
 
     private void parsing(String colleg) throws IOException {
         // Inizializzazione buffer per il parsing
-        BufferedReader bffr = null;
+        BufferedReader reader = null;
         try {
             URLConnection connessione = new URL(colleg).openConnection();   // avvia la connessione all'url preso come parametro
             connessione.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"); // aggiungo user-agent
-            bffr = new BufferedReader(new InputStreamReader(connessione.getInputStream())); //nuovo buffer per leggere il json ottenuto dell'url
-            String json = bffr.readLine();    // leggo dal buffer il json che so trova su una riga e lo salvo su una stringa
-            bffr.close();     // chiusura buffer
+            reader = new BufferedReader(new InputStreamReader(connessione.getInputStream())); //nuovo buffer per leggere il json ottenuto dell'url
+            String json = reader.readLine();    // leggo dal buffer il json che so trova su una riga e lo salvo su una stringa
+            reader.close();     // chiusura buffer
 
             Map mappa = new BasicJsonParser().parseMap(json); // passo la stringa del json al parser di Spring che mi restituisce la mappa chiave-valore associata
             // scorro la mappa fino all'URL del file csv
@@ -68,10 +69,10 @@ public class ContrNazServizio {
             }
 
             URL urlcsv = new URL(csvlink);  // apro connessione all'url
-            bffr = new BufferedReader(new InputStreamReader(urlcsv.openStream()));    // apro il buffer di lettura
-            bffr.readLine();  // salto la prima riga
+            reader = new BufferedReader(new InputStreamReader(urlcsv.openStream()));    // apro il buffer di lettura
+            reader.readLine();  // salto la prima riga
             String riga;
-            while ((riga = bffr.readLine()) != null) {    // leggo ogni riga del file
+            while ((riga = reader.readLine()) != null) {    // leggo ogni riga del file
                 //sostituisco le virgole con ; che utilizzerò come separatore
                 riga = riga.replace(",", ";");
                 //uso split per dividere la riga in corrispondenza dei separatori, con trim elimino i caratteri non visibili
@@ -96,7 +97,7 @@ public class ContrNazServizio {
             e.printStackTrace();
         } finally {
             // chiudo buffer rimasti aperti nel finally
-            if (bffr != null) bffr.close();
+            if (reader != null) reader.close();
         }
     }
 
