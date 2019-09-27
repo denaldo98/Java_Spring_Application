@@ -11,7 +11,7 @@ public class ContributoNazione implements Serializable{
     private String unit;
     private String aid_instr;
     private double[] contributo;
-    private static final int intervalloAnni=18;
+    public static final int intervalloAnni=18;
 
 
     /**
