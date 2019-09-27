@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static com.denapoli.progettoop.modello.ContributoNazione.intervalloAnni;
@@ -25,12 +27,19 @@ public class ContrNazServizio {
      * Costruttore per caricare il dataset facendo il parsing del csv
      */
     public ContrNazServizio() {
-        String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA"; // url sulla mail
-        try {
-            parsing(url);
-            System.out.println("Dataset parsato da file csv da remoto");
-        } catch (IOException e) {
-            e.printStackTrace();
+        String fileSeriale = "dataset.ser";
+        if (Files.exists(Paths.get(fileSeriale))) {
+            caricaSeriale(fileSeriale);
+            System.out.println("Dataset caricato da file seriale");
+        } else {
+            String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA"; // url sulla mail
+            try {
+                parsing(url);
+                salvaSeriale(fileSeriale);
+                System.out.println("Dataset parsato da remoto e salvato in locale");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -88,6 +97,39 @@ public class ContrNazServizio {
         } finally {
             // chiudo buffer rimasti aperti nel finally
             if (bffr != null) bffr.close();
+        }
+    }
+
+    /**
+     * Metodo che esegue il salvataggio in locale tramite seriale java
+     *
+     * @param nomeFile file cache da creare
+     */
+    private void salvaSeriale(String nomeFile) {
+        // buffer di output per salvare tramite seriale la lista creata
+        try (ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(nomeFile))) {
+            //salvo la lista come array per evitare problemi di casting, verrà dunque riconvertita in lista
+            outStream.writeObject(contributi.toArray(new ContributoNazione[0]));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo che carica la lista di oggetti (già parsati) tramite seriale
+     *
+     * @param nomeFile nome del file cache da leggere
+     */
+    private void caricaSeriale(String nomeFile) {
+        // buffer di  input da file seriale
+        try (ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(nomeFile))) {
+            // salvo la lista come array per evitare problemi di casting
+            contributi = Arrays.asList((ContributoNazione[]) inStream.readObject());   //readObject legge in ordine e non ha parametri
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Impossibile trovare la classe!");
+            e.printStackTrace();
         }
     }
 
