@@ -1,8 +1,12 @@
 package com.denapoli.progettoop.servizio;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
+
 import org.springframework.boot.json.BasicJsonParser;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,7 +23,7 @@ import static com.denapoli.progettoop.modello.ContributoNazione.intervalloAnni;
  */
 @Service
 public class ContrNazServizio {
-
+    private final static String COMMA_DELIMITER = ";";
     private List<ContributoNazione> contributi = new ArrayList<>();
     private List<Map> metadati = new ArrayList<>();//lista per i metadati
 
@@ -73,16 +77,16 @@ public class ContrNazServizio {
             String riga;
             while ((riga = bffr.readLine()) != null) {    // leggo ogni riga del file
                 //sostituisco le virgole con ; che utilizzerò come separatore
-                riga = riga.replace(",", ";");
+                riga = riga.replace(",", COMMA_DELIMITER);
                 //uso split per dividere la riga in corrispondenza dei separatori, con trim elimino i caratteri non visibili
-                String[] rigaSeparata = riga.trim().split(";");
+                String[] rigaSeparata = riga.trim().split(COMMA_DELIMITER);
                 // prendiamo i valori dei singoli campi dalla riga
                 char freq = rigaSeparata[0].trim().charAt(0);//freq è di tipo char
                 String geo = rigaSeparata[1].trim();
                 String unit = rigaSeparata[2].trim();
                 String aid_instr = rigaSeparata[3].trim();
                 double[] contributo = new double[intervalloAnni];
-                for (int i=0; i<intervalloAnni; i++) {
+                for (int i = 0; i < intervalloAnni; i++) {
                     contributo[i] = Double.parseDouble(rigaSeparata[4 + i].trim());
                 }
                 // prendendo i valori ottenuti dal parsing, creo un nuovo oggetto e lo inserisco nella lista
@@ -142,4 +146,14 @@ public class ContrNazServizio {
         return contributi;
     }
 
+    /**
+     * Restituisce l'oggetto che corrisponde all'indice passato
+     *
+     * @param n n-indice dell'oggetto richiesto
+     * @return l'oggetto corrispondente al valore di indice n
+     */
+    public ContributoNazione getContrNaz(int n) {//restituisce il contributo n-esimo
+        if (n < contributi.size()) return contributi.get(n);
+        else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Oggetto di indice " + n + " non esiste!");
+    }
 }
