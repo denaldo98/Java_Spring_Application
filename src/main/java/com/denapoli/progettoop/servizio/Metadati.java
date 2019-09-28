@@ -2,11 +2,13 @@ package com.denapoli.progettoop.servizio;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
 
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class Metadati {
     private List<Map> metadati = new ArrayList<>();//lista per i metadati
@@ -25,5 +27,6 @@ public class Metadati {
             metadati.add(map);
         }
     }
+
     public List getMetadati (){return metadati;}
 }

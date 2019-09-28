@@ -25,7 +25,7 @@ import static com.denapoli.progettoop.modello.ContributoNazione.intervalloAnni;
 public class ContrNazServizio {
     private final static String COMMA_DELIMITER = ";";
     private List<ContributoNazione> contributi = new ArrayList<>();
-
+    public Metadati metadati;
     /**
      * Costruttore per caricare il dataset facendo il parsing del csv
      */
@@ -44,6 +44,7 @@ public class ContrNazServizio {
                 e.printStackTrace();
             }
         }
+      metadati = new Metadati();
     }
 
     private void parsing(String colleg) throws IOException {
