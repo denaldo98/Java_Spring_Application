@@ -25,7 +25,6 @@ import static com.denapoli.progettoop.modello.ContributoNazione.intervalloAnni;
 public class ContrNazServizio {
     private final static String COMMA_DELIMITER = ";";
     private List<ContributoNazione> contributi = new ArrayList<>();
-    private List<Map> metadati = new ArrayList<>();//lista per i metadati
 
     /**
      * Costruttore per caricare il dataset facendo il parsing del csv
@@ -103,6 +102,7 @@ public class ContrNazServizio {
             if (bffr != null) bffr.close();
         }
     }
+
 
     /**
      * Metodo che esegue il salvataggio in locale tramite seriale java
