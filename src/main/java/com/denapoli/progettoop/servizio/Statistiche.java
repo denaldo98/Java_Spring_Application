@@ -1,6 +1,9 @@
 package com.denapoli.progettoop.servizio;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Statistiche {
 
@@ -83,4 +86,57 @@ public abstract class Statistiche {
     public static int count(List lista) {
         return lista.size();
     }
+
+
+    /**
+     * Metodo per contare quante volte compare ogni elemento in una lista
+     *
+     * @param lista lista di valori
+     * @return Map che ha come chiavi gli elementi della lista e come valori il numero di occorrenze
+     */
+    public static Map<Object, Integer> contaElementiUnici(List lista) {
+        Map<Object, Integer> m = new HashMap<>();
+        for (Object o : lista) {
+            Integer num=m.get(o);
+            m.put(o, (num == null ? 1 : num+1));       //se la chiave si trova già nella mappa aumento di 1 il valore
+        }                                               // altrimenti aggiungo l'oggetto appena trovato alla mappa con valore 1
+        return m;
+    }
+
+    /**
+     * Metodo che utilizzando gli altri della classe, restituisce tutti valori statistici di un certo campo del dataset
+     *
+     * @param nomeCampo nome del campo dal quale si è estratta la lista di valori
+     * @param lista      lista dei valori del campo
+     * @param anno      anno sul quale calcolare la statistica numerica
+     * @return Map che ha come chiavi i nomi delle statistiche calcolabili sul campo e associati i rispettivi valori
+     */
+
+
+    /**
+    public static Map<String, Object> getStatistiche(String nomeCampo, List lista, int... anno) {
+        Map<String, Object> m = new HashMap<>();
+        m.put("campo", nomeCampo);
+        if (!lista.isEmpty()) {
+            if (lista.get(0) instanceof Double) {        // calcola le statistiche numeriche
+                //converto la lista generica in lista di double
+                List<Double> listNum = new ArrayList<>();
+                for (Object o : lista){
+                    listNum.add(((Double) o));
+                }
+                m.put("avg", avg(listNum));
+                m.put("min", min(listNum));
+                m.put("max", max(listNum));
+                m.put("dev std", devStd(listNum));
+                m.put("sum", sum(listNum));
+                m.put("count", count(listNum));
+                return m;
+            } else {        // calcola le statistiche non numeriche
+                m.put("uniqueElements", contaElementiUnici(lista));
+                m.put("count", count(lista));
+            }
+        }
+        return m;
+    }
+    */
 }

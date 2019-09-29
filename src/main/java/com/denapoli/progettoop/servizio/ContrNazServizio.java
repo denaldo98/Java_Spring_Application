@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -157,4 +159,56 @@ public class ContrNazServizio {
         if (n < contributi.size()) return contributi.get(n);
         else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Oggetto di indice " + n + " non esiste!");
     }
+
+    /**
+     * Restituisce le statistiche relative ad un certo campo
+     *
+     * @param fieldName nome del campo
+     * @return Map contenente le statistiche
+     */
+
+
+    /**
+    public Map getStats(String fieldName) {
+        return Statistiche.getStatistiche(fieldName, getFieldValues(fieldName));
+    }
+     */
+
+
+    /**
+     * Metodo che estrae dalla lista di oggetti (dataset) la lista dei valori relativi ad un singolo campo: se si tratta del campo contributi(vettore di double) viene richiesto come parametro anche l'anno
+     *
+     * @param nomeCampo campo del quale estrarre i valori
+     * @return lista dei valori del campo richiesto
+     */
+    private List getFieldValues(String nomeCampo, int... anno) {
+        List<Object> values = new ArrayList<>();
+        try {
+            if(nomeCampo.equals("contributo") && anno.length == 0 ){
+                System.err.println("Errore!");
+                return values;                      //da modificare
+            }
+            if(!nomeCampo.equals("contributo")){
+            //serve per scorrere tutte le strutture ed estrarre i valori del campo nomeCampo
+                for (ContributoNazione contr : contributi) {
+                    Method getter = ContributoNazione.class.getMethod("get" + nomeCampo.substring(0, 1).toUpperCase() + nomeCampo.substring(1));
+                    Object value = getter.invoke(contr);
+                    values.add(value);
+                }
+            }
+            else {
+                    for(ContributoNazione contr : contributi){
+                        Object value= contr.getContributo()[anno[0]-2000];
+                        values.add(value);
+            }
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Field '" + nomeCampo + "' does not exist");
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return values;
+    }
+
 }
