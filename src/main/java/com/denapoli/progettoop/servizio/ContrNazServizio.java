@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -152,33 +153,54 @@ public class ContrNazServizio {
     /**
      * Restituisce l'oggetto che corrisponde all'indice passato
      *
-     * @param n n-indice dell'oggetto richiesto
+     * @param n indice dell'oggetto richiesto
      * @return l'oggetto corrispondente al valore di indice n
      */
     public ContributoNazione getContrNaz(int n) {//restituisce il contributo n-esimo
         if (n < contributi.size()) return contributi.get(n);
-        else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Oggetto di indice " + n + " non esiste!");
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Oggetto di indice " + n + " non esiste!");
     }
 
     /**
      * Restituisce le statistiche relative ad un certo campo
      *
      * @param fieldName nome del campo
+     * @param anno eventuale anno se si scegli il campo contributo
      * @return Map contenente le statistiche
      */
+    public Map getStatistiche(String fieldName, int... anno) {
+        if(anno.length == 1) {
+            return Statistiche.getTutteStatistiche(fieldName+(anno[0]+2000), getFieldValues(fieldName, anno[0]));
 
-
-    /**
-    public Map getStats(String fieldName) {
-        return Statistiche.getStatistiche(fieldName, getFieldValues(fieldName));
+        }
+        return  Statistiche.getTutteStatistiche(fieldName, getFieldValues(fieldName));
     }
+
+    /**
+     * Restituisce le statistiche relative a tutti i campi
+     *
+     * @return lista di mappe contenenti le statistiche relative ad ogni campo
      */
+    public List<Map> getStatistiche() {
+        Field[] fields = ContributoNazione.class.getDeclaredFields();// questo ci da l'elenco di tutti gli attributi della classe
+        List<Map> list = new ArrayList<>();
+        for (Field f : fields) {
+            String fieldName = f.getName();//f è l'oggetto di tipo fieldsName estrae il nome del campo corrente
+            if(fieldName.equals("contributo"))
+                for( int i=0; i<intervalloAnni; i++)
+                    list.add(getStatistiche("contributo", i+2000 ));
+                else list.add(getStatistiche(fieldName));//va ad aggiungere alla lista  la mappa che contiene le statistiche del campo fieldName
+
+        }
+        return list;
+    }
 
 
     /**
-     * Metodo che estrae dalla lista di oggetti (dataset) la lista dei valori relativi ad un singolo campo: se si tratta del campo contributi(vettore di double) viene richiesto come parametro anche l'anno
+     * Metodo che estrae dalla lista di oggetti la lista dei valori relativi ad un singolo campo: se si tratta del campo contributi(vettore di double) viene richiesto come parametro anche l'anno
      *
      * @param nomeCampo campo del quale estrarre i valori
+     * @param anno  anno rispetto al quale estrarre i valori
      * @return lista dei valori del campo richiesto
      */
     private List getFieldValues(String nomeCampo, int... anno) {
@@ -189,7 +211,7 @@ public class ContrNazServizio {
                 return values;                      //da modificare
             }
             if(!nomeCampo.equals("contributo")){
-            //serve per scorrere tutte le strutture ed estrarre i valori del campo nomeCampo
+            //serve per scorrere tutti gli oggetti ed estrarre i valori del campo nomeCampo
                 for (ContributoNazione contr : contributi) {
                     Method getter = ContributoNazione.class.getMethod("get" + nomeCampo.substring(0, 1).toUpperCase() + nomeCampo.substring(1));
                     Object value = getter.invoke(contr);

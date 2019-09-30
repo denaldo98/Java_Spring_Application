@@ -45,7 +45,6 @@ public abstract class Statistiche {
         return max;
     }
 
-
     /**
      * Metodo per calcolare la deviazione standard degli elementi di una lista
      *
@@ -103,22 +102,19 @@ public abstract class Statistiche {
         return m;
     }
 
+
     /**
-     * Metodo che utilizzando gli altri della classe, restituisce tutti valori statistici di un certo campo del dataset
+     * Metodo che restituisce tutti valori statistici di un certo campo del dataset
      *
      * @param nomeCampo nome del campo dal quale si è estratta la lista di valori
-     * @param lista      lista dei valori del campo
-     * @param anno      anno sul quale calcolare la statistica numerica
+     * @param lista lista dei valori del campo
      * @return Map che ha come chiavi i nomi delle statistiche calcolabili sul campo e associati i rispettivi valori
      */
-
-
-    /**
-    public static Map<String, Object> getStatistiche(String nomeCampo, List lista, int... anno) {
+    public static Map<String, Object> getTutteStatistiche(String nomeCampo, List lista) {
         Map<String, Object> m = new HashMap<>();
         m.put("campo", nomeCampo);
         if (!lista.isEmpty()) {
-            if (lista.get(0) instanceof Double) {        // calcola le statistiche numeriche
+            if (lista.get(0) instanceof Double) {        // calcola le statistiche numeriche nel caso di lista numerica
                 //converto la lista generica in lista di double
                 List<Double> listNum = new ArrayList<>();
                 for (Object o : lista){
@@ -132,11 +128,10 @@ public abstract class Statistiche {
                 m.put("count", count(listNum));
                 return m;
             } else {        // calcola le statistiche non numeriche
-                m.put("uniqueElements", contaElementiUnici(lista));
+                m.put("elementiUnici", contaElementiUnici(lista));
                 m.put("count", count(lista));
             }
         }
         return m;
     }
-    */
 }
