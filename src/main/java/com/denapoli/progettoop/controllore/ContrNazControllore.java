@@ -5,7 +5,9 @@ import com.denapoli.progettoop.servizio.ContrNazServizio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *  Controllore Spring che gestisce le richieste dell'utente
@@ -57,6 +59,24 @@ public class ContrNazControllore {
     public List getMetadata() {
         return servizio.metadata.getMetadata();
     }
+
+    /**
+     * Metodo per gestire la richiesta GET alla rotta "/stats", restituendo le statistiche
+     *
+     * @param nomeCampo parametro opzionale per richiedere le statistiche di un solo campo
+     * @return lista contenente le statistiche richieste
+     */
+    @GetMapping("/stats") //da modificare
+    public List getStats(@RequestParam(value = "field", required = false, defaultValue = "") String nomeCampo) {
+        if (nomeCampo.equals("")) {
+            return servizio.getStatistiche();
+        } else {
+            List<Map> list = new ArrayList<>();
+            list.add(servizio.getStatistiche(nomeCampo));
+            return list;
+        }
+    }
+
 
 
 
