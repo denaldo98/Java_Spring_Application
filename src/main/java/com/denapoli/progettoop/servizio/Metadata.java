@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Metadati {
-    private List<Map> metadati = new ArrayList<>();//lista per i metadati
+public class Metadata {
+    private List<Map> metadata = new ArrayList<>();//lista per i metadati
 
-    public Metadati() {
+    public Metadata() {
         /*Il costruttore genera la lista dei metadati relativi al dataset considerato
          *Con metadati si intendono le informazioni riguardanti il nome dei campi del dataset, il nome e il tipo della variabile con cui essi vengono gestiti nell'applicazione */
         Field[] fields = ContributoNazione.class.getDeclaredFields();//estrae gli attributi della classe modellante
@@ -24,9 +24,9 @@ public class Metadati {
             map.put("alias", f.getName());
             map.put("sourceField", f.getName());//nome del campo in csv
             map.put("type", f.getType().getSimpleName());
-            metadati.add(map);
+            metadata.add(map);
         }
     }
 
-    public List getMetadati (){return metadati;}
+    public List getMetadata (){return metadata;}
 }
