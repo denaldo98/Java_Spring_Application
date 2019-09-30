@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  Controllore Spring che gestisce le richieste dell'utente
+ *  Controllore Spring per gestire le richieste dell'utente
  */
 @RestController
 public class ContrNazControllore {
@@ -60,20 +60,25 @@ public class ContrNazControllore {
         return servizio.metadata.getMetadata();
     }
 
+
+
     /**
      * Metodo per gestire la richiesta GET alla rotta "/stats", restituendo le statistiche
      *
      * @param nomeCampo parametro opzionale per richiedere le statistiche di un solo campo
      * @return lista contenente le statistiche richieste
      */
-    @GetMapping("/stats") //da modificare
-    public List getStats(@RequestParam(value = "field", required = false, defaultValue = "") String nomeCampo) {
+    @GetMapping("/stats") //da modificare: possibile chiamata metodo nel caso contributo che prende anno come unico parametro
+    public List getStats(@RequestParam(value = "field", required = false, defaultValue = "") String nomeCampo, @RequestParam(value = "anno", required = false, defaultValue = "2000") int anno) {
         if (nomeCampo.equals("")) {
             return servizio.getStatistiche();
         } else {
-            List<Map> list = new ArrayList<>();
-            list.add(servizio.getStatistiche(nomeCampo));
-            return list;
+            List<Map> lista = new ArrayList<>();
+            if(nomeCampo.equals("contributo"))
+                lista.add(servizio.getStatistiche("contributo",anno));
+            else
+                lista.add(servizio.getStatistiche(nomeCampo));
+            return lista;
         }
     }
 
