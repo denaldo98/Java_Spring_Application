@@ -11,19 +11,17 @@ import java.util.List;
  * Classe con metodi per filtraggio dati e statistiche
  */
 public class Filtri {
-
     //operatori di confronto considerati
-    private static final List<String> operatori = Arrays.asList("$not", "$in", "$nin","$eq", "$gt", "$gte", "$lt", "$lte", "$bt");
+    private static final List<String> operatori = Arrays.asList("$not", "$in", "$nin", "$eq", "$gt", "$gte", "$lt", "$lte", "$bt");
 
     /**
      * Metodo per confrontare in base all'operatore inserito il valore val e il riferimento rif
      *
-     * @param val valore sul quale applicare l'operatore
+     * @param val  valore sul quale applicare l'operatore
      * @param oper operatore da applicare
-     * @param rif valore di riferimento
+     * @param rif  valore di riferimento
      * @return boolean
      */
-
     //Da aggiungere filtro Char? chiamata su vettore?
     public static boolean check(Object val, String oper, Object rif) {
         if (operatori.contains(oper)) {             //controllo che l'operatore sia uno di quelli gestiti
@@ -103,8 +101,7 @@ public class Filtri {
                                 String message = "L'operatore: '" + oper + "' risulta inadatto per gli operandi: '" + val + "' , '" + rif + "'";
                                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
                         }
-                    }
-                    else
+                    } else
                         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La lista è vuota o non contiene stringhe"); //caso in cui la lista sia vuota o non contenente stringhe
                 } else
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Riferimento:'" + rif + "' non compativile con il valore'" + val + "'"); //caso in cui valore e riferimento non siano compatibili
@@ -114,7 +111,29 @@ public class Filtri {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Operatore non valido: " + oper); //operatore non gestito
     }
 
+    /**
+     * Metodo per restituire la lista di operatori gestiti
+     *
+     * @return lista degli operatori validi per i filtri
+     */
     public static List<String> getOperatori() {
         return operatori;
+    }
+
+    /**
+     * Metodo per applicare i filtri ad una lista
+     *
+     * @param val   lista dei valori su cui applicare i filtri
+     * @param oper operatore da applicare
+     * @param rif      valore di riferimento
+     * @return lista con gli indici dei valori che soddisfano il filtro
+     */
+    public static List<Integer> filtra(List val, String oper, Object rif) {
+        List<Integer> filtrati = new ArrayList<>();
+        for (int i = 0; i < val.size(); i++) {
+            if (check(val.get(i), oper, rif))        // eseguiamo il controllo per ogni elemento della lista: se soddisfatto aggiungo l'indice alla lista
+                filtrati.add(i);
+        }
+        return filtrati;         //restituisco la lista con gli indici
     }
 }
