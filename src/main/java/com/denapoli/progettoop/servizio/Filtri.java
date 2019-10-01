@@ -23,6 +23,8 @@ public class Filtri {
      * @param rif valore di riferimento
      * @return boolean
      */
+
+    //Da aggiungere filtro Char? chiamata su vettore?
     public static boolean check(Object val, String oper, Object rif) {
         if (operatori.contains(oper)) {             //controllo che l'operatore sia uno di quelli gestiti
             if (val instanceof Number) {            //caso in cui il valore da controllare sia un numero
@@ -47,11 +49,11 @@ public class Filtri {
                             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, erroreOper); //restituisce il messaggio di errore in formato JSON
                     }
                 } else if (rif instanceof List) {                              //caso in cui il riferimento sia una lista
-                    List lRif = ((List) rif);
-                    if (!lRif.isEmpty() && lRif.get(0) instanceof Number) {             //lista non vuota e contenente numeri
+                    List rifL = ((List) rif);
+                    if (!rifL.isEmpty() && rifL.get(0) instanceof Number) {             //lista non vuota e contenente numeri
                         //conversione lista generica in lista di double
                         List<Double> lRifNum = new ArrayList<>();
-                        for (Object elem : lRif) {
+                        for (Object elem : rifL) {
                             lRifNum.add(((Number) elem).doubleValue()); //converto singolo elemento
                         }
                         switch (oper) {                             //selezione operatore
@@ -71,13 +73,45 @@ public class Filtri {
                         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lista vuota o non numerica");
                 } else
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Il riferimento: '" + rif + "' non è compatibile con il valore: '" + val + "'");
-            } else if (val instanceof String) {                                         //implementare filtri stringhe
-
+            } else if (val instanceof String) {     // caso in cui il valore da controllare sia una stringa
+                String valStr = ((String) val); // conversione
+                if (rif instanceof String) {        // caso in cui il riferimento sia una stringa
+                    String rifStr = ((String) rif); // conversione
+                    switch (oper) {
+                        case "$eq":
+                            return valStr.equals(rifStr);
+                        case "$not":
+                            return !valStr.equals(rifStr);
+                        default:
+                            String erroreOper = "L'operatore:'" + oper + "' risulta inadatto per gli operandi: '" + val + "' , '" + rif + "'";
+                            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, erroreOper);
+                    }
+                } else if (rif instanceof List) {  //caso in cui il riferimento sia una lista
+                    List rifL = ((List) rif);
+                    if (!rifL.isEmpty() && rifL.get(0) instanceof String) {   // se la lista non è vuota e contiene stringhe
+                        // effettuo la conversione da lista generica a lista di stringhe
+                        List<String> rifLStr = new ArrayList<>();
+                        for (Object elem : rifL) {
+                            rifLStr.add((String) elem);
+                        }
+                        switch (oper) {
+                            case "$in":
+                                return rifLStr.contains(valStr);
+                            case "$nin":
+                                return !rifLStr.contains(valStr);
+                            default:
+                                String message = "L'operatore: '" + oper + "' risulta inadatto per gli operandi: '" + val + "' , '" + rif + "'";
+                                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, message);
+                        }
+                    }
+                    else
+                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La lista è vuota o non contiene stringhe"); //caso in cui la lista sia vuota o non contenente stringhe
+                } else
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Riferimento:'" + rif + "' non compativile con il valore'" + val + "'"); //caso in cui valore e riferimento non siano compatibili
             } else
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Valore da controllare non valido: '" + val + "'");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Valore da controllare non valido: '" + val + "'");  //caso in cui il valore non sia valido (no stringa o numerico)
         } else
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Operatore non valido: " + oper);
-    return false;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Operatore non valido: " + oper); //operatore non gestito
     }
 
     public static List<String> getOperatori() {
