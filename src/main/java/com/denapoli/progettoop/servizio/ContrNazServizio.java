@@ -232,5 +232,22 @@ public class ContrNazServizio {
         }
         return values;
     }
+    /**
+     * Restituisce una lista formata dagli oggetti che soddisfano il filtro
+     *
+     * @param nomeCampo campo da filtrare
+     * @param oper  operatore di confronto
+     * @param rif valore di riferimento
+     * @param anno eventuale anno su cui applicare il filtro per il contributo
+     * @return lista di oggetti che soddisfano il filtro
+     */
+    public List<ContributoNazione> getDatiFiltrati(String nomeCampo, String oper, Object rif, int ... anno) {
+        List<Integer> filtrati = Filtri.filtra(getFieldValues(nomeCampo, anno), oper, rif);    //applico il filtro alla lista
+        List<ContributoNazione> risultatoFiltro = new ArrayList<>(); //aggiungo alla lista solo gli oggetti che soddisfano le specifiche del filtro attraverso gli indici
+        for (int i : filtrati) {
+            risultatoFiltro.add(contributi.get(i));
+        }
+        return risultatoFiltro;
+    }
 
 }
