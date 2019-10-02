@@ -18,7 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static com.denapoli.progettoop.modello.ContributoNazione.intervalloAnni;
+
 
 
 /**
@@ -54,13 +54,14 @@ public class ContrNazServizio {
         // Inizializzazione buffer per il parsing
         BufferedReader bffr = null;
         try {
+            //lettura stringa json
             URLConnection connessione = new URL(colleg).openConnection();   // avvia la connessione all'url preso come parametro
             connessione.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"); // aggiungo user-agent
             bffr = new BufferedReader(new InputStreamReader(connessione.getInputStream())); //nuovo buffer per leggere il json ottenuto dell'url
             String json = bffr.readLine();    // leggo dal buffer il json che so trova su una riga e lo salvo su una stringa
             bffr.close();     // chiusura buffer
 
-            Map mappa = new BasicJsonParser().parseMap(json); // passo la stringa del json al parser di Spring che mi restituisce la mappa chiave-valore associata
+            Map mappa = new BasicJsonParser().parseMap(json); // passo la stringa del json al parser di Spring che tramite il metodo parseMap mi restituisce la mappa chiave-valore associata
             // scorro la mappa fino all'URL del file csv
             Map result = (Map) mappa.get("result");   // faccio il casting poiché get restituisce un generico object
             List resources = (List) result.get("resources");
@@ -88,8 +89,8 @@ public class ContrNazServizio {
                 String geo = rigaSeparata[1].trim();
                 String unit = rigaSeparata[2].trim();
                 String aid_instr = rigaSeparata[3].trim();
-                double[] contributo = new double[intervalloAnni];
-                for (int i = 0; i < intervalloAnni; i++) {
+                double[] contributo = new double[ContributoNazione.intervalloAnni];
+                for (int i = 0; i < ContributoNazione.intervalloAnni; i++) {
                     contributo[i] = Double.parseDouble(rigaSeparata[4 + i].trim());
                 }
                 // prendendo i valori ottenuti dal parsing, creo un nuovo oggetto e lo inserisco nella lista
@@ -187,7 +188,7 @@ public class ContrNazServizio {
         for (Field f : fields) {
             String fieldName = f.getName();//f è l'oggetto di tipo fieldsName estrae il nome del campo corrente
             if(fieldName.equals("contributo"))
-                for( int i=0; i<intervalloAnni; i++)
+                for( int i=0; i<ContributoNazione.intervalloAnni; i++)
                     list.add(getStatistiche("contributo", i+2000 ));
                 else list.add(getStatistiche(fieldName));//va ad aggiungere alla lista  la mappa che contiene le statistiche del campo fieldName
 
