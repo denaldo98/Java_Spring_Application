@@ -71,7 +71,9 @@ public class Filtri {
                         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lista vuota o non numerica");
                 } else
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Il riferimento: '" + rif + "' non è compatibile con il valore: '" + val + "'");
-            } else if (val instanceof String) {     // caso in cui il valore da controllare sia una stringa
+            } else if (val instanceof String || val instanceof Character) {// caso in cui il valore da controllare sia una stringa
+               if(val instanceof Character)
+                val=String.valueOf(val);
                 String valStr = ((String) val); // conversione
                 if (rif instanceof String) {        // caso in cui il riferimento sia una stringa
                     String rifStr = ((String) rif); // conversione
