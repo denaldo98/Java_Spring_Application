@@ -1,4 +1,4 @@
-package com.denapoli.progettoop.servizio;
+package com.denapoli.progettoop.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -111,12 +111,12 @@ public abstract class Statistiche {
      * @return Map che ha come chiavi i nomi delle statistiche calcolabili sul campo e associati i rispettivi valori
      */
 
-    // da modificare
+    // dovrebbe essere ok
     public static Map<String, Object> getTutteStatistiche(String nomeCampo, List lista) {
         Map<String, Object> m = new HashMap<>();
         m.put("campo", nomeCampo);
         if (!lista.isEmpty()) {
-            if (lista.get(0) instanceof Double) {        // calcola le statistiche numeriche nel caso di lista numerica
+            if (ContrNazService.anni.contains(nomeCampo) ) {        // calcola le statistiche numeriche rispetto all'anno scelto
                 //converto la lista generica in lista di double
                 List<Double> listNum = new ArrayList<>();
                 for (Object o : lista){

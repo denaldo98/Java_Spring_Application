@@ -1,4 +1,4 @@
-package com.denapoli.progettoop.servizio;
+package com.denapoli.progettoop.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

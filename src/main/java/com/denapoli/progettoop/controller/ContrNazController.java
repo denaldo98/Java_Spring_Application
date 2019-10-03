@@ -1,7 +1,7 @@
-package com.denapoli.progettoop.controllore;
+package com.denapoli.progettoop.controller;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
-import com.denapoli.progettoop.servizio.ContrNazServizio;
+import com.denapoli.progettoop.service.ContrNazService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,18 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  Controllore Spring per gestire le richieste dell'utente
+ *  Controller Spring per gestire le richieste dell'utente
  */
 @RestController
-public class ContrNazControllore {
-    private ContrNazServizio servizio;
+public class ContrNazController {
+    private ContrNazService service;
     /**
      * L'annotazione @Autowired lancia automaticamente il costruttore all'avvio di Spring
-     * @param servizio riferimento all'istanza del servizio
+     * @param service riferimento all'istanza del servizio
      */
     @Autowired //dependency injection
-    public ContrNazControllore(ContrNazServizio servizio) {
-        this.servizio = servizio;
+    public ContrNazController(ContrNazService service) {
+        this.service = service;
     }
 
     //Metodi che attraverso l'utilizzo di una richiesta GET all'url indicato restituiranno differenti oggetti
@@ -34,7 +34,7 @@ public class ContrNazControllore {
     //la rotta è la parte dell'url dopo dominio:porta es.: localhost:8080/data
     @GetMapping("/data")
     public List getData() {
-        return servizio.getData();
+        return service.getData();
     }
 
     /**
@@ -46,7 +46,7 @@ public class ContrNazControllore {
      */
     @GetMapping("/data/{id}")
     public ContributoNazione getContrNazId(@PathVariable int id) {
-        return servizio.getContrNaz(id);
+        return service.getContrNaz(id);
     }
 
     /**
@@ -56,7 +56,7 @@ public class ContrNazControllore {
      */
     @GetMapping("/metadata")
     public List getMetadata() {
-        return servizio.metadata.getMetadata();
+        return service.metadata.getMetadata();
     }
 
 
@@ -66,13 +66,13 @@ public class ContrNazControllore {
      * @param nomeCampo nome del campo per statistiche o anno su cui calcolare statistiche numeriche, se non viene inserito vengono fornite le statistiche su ogni campo
      * @return lista contenente le statistiche richieste
      */
-    @GetMapping("/stats") //da modificare: possibile chiamata metodo nel caso contributo che prende anno come unico parametro
+    @GetMapping("/stats") //da modificare? nomeCampo unico paramentro, prova
     public List getStats(@RequestParam(value = "field", required = false, defaultValue = "") String nomeCampo) {
         if (nomeCampo.equals("")) {
-            return servizio.getStatistiche();
+            return service.getStatistiche();
         } else {
             List<Map> lista = new ArrayList<>();
-                lista.add(servizio.getStatistiche(nomeCampo));
+                lista.add(service.getStatistiche(nomeCampo));
             return lista;
         }
     }

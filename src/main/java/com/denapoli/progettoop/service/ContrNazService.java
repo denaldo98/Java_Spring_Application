@@ -1,4 +1,4 @@
-package com.denapoli.progettoop.servizio;
+package com.denapoli.progettoop.service;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
 
@@ -25,16 +25,16 @@ import java.util.*;
  * Classe che carica il dataset gestendone l'accesso
  */
 @Service
-public class ContrNazServizio {
+public class ContrNazService {
     private final static String COMMA_DELIMITER = ";"; //separatore CSV
-    private List<String> anni=new ArrayList<>();
+    public static List<String> anni=new ArrayList<>();
     private List<ContributoNazione> contributi = new ArrayList<>();     //lista di istanze della classe modellante
     public Metadata metadata;           //metadata
 
     /**
      * Costruttore per scaricare il dataset e fare il parsing del csv
      */
-    public ContrNazServizio() {
+    public ContrNazService() {
         for(int i=0;i<ContributoNazione.intervalloAnni;i++)   //da spostare?
             anni.add(Integer.toString(2000+i));
         String fileCSV = "dataset.csv";
@@ -154,16 +154,9 @@ public class ContrNazServizio {
      * Restituisce le statistiche relative ad un certo campo
      *
      * @param fieldName nome del campo
-     * @param anno eventuale anno se si scegli il campo contributo
      * @return Map contenente le statistiche
      */
-
-    //da modificare
-    public Map getStatistiche(String fieldName, int... anno) {
-        if(anno.length == 1) {
-            return Statistiche.getTutteStatistiche(fieldName+(anno[0]+2000), getFieldValues(fieldName, anno[0]));
-
-        }
+    public Map getStatistiche(String fieldName) {
         return  Statistiche.getTutteStatistiche(fieldName, getFieldValues(fieldName));
     }
 
@@ -173,7 +166,6 @@ public class ContrNazServizio {
      * @return lista di mappe contenenti le statistiche relative ad ogni campo
      */
 
-    //da modificare
     public List<Map> getStatistiche() {
         Field[] fields = ContributoNazione.class.getDeclaredFields();// questo ci da l'elenco di tutti gli attributi della classe
         List<Map> list = new ArrayList<>();
@@ -181,7 +173,7 @@ public class ContrNazServizio {
             String fieldName = f.getName();//f è l'oggetto di tipo fieldsName estrae il nome del campo corrente
             if(fieldName.equals("contributo"))
                 for( int i=0; i<ContributoNazione.intervalloAnni; i++)
-                    list.add(getStatistiche("contributo", i+2000 ));
+                    list.add(getStatistiche(Integer.toString(2000+i) ));
                 else list.add(getStatistiche(fieldName));//va ad aggiungere alla lista  la mappa che contiene le statistiche del campo fieldName
 
         }
@@ -193,19 +185,14 @@ public class ContrNazServizio {
      * Metodo che estrae dalla lista di oggetti la lista dei valori relativi ad un singolo campo: se si tratta del campo contributi(vettore di double) viene richiesto come parametro anche l'anno
      *
      * @param nomeCampo campo del quale estrarre i valori
-     * @param anno  anno rispetto al quale estrarre i valori
      * @return lista dei valori del campo richiesto
      */
 
-    //da modificare
-    private List getFieldValues(String nomeCampo, int... anno) {
+    //dovrebbe andare
+    private List getFieldValues(String nomeCampo) {
         List<Object> values = new ArrayList<>();
         try {
-            if(nomeCampo.equals("contributo") && anno.length == 0 ){
-                System.err.println("Errore!");
-                return values;                      //da modificare
-            }
-            if(!nomeCampo.equals("contributo")){
+            if(!anni.contains(nomeCampo)){
             //serve per scorrere tutti gli oggetti ed estrarre i valori del campo nomeCampo
                 for (ContributoNazione contr : contributi) {
                     Method getter = ContributoNazione.class.getMethod("get" + nomeCampo.substring(0, 1).toUpperCase() + nomeCampo.substring(1));
@@ -215,7 +202,7 @@ public class ContrNazServizio {
             }
             else {
                     for(ContributoNazione contr : contributi){
-                        Object value= contr.getContributo()[anno[0]-2000];
+                        Object value= contr.getContributo()[Integer.parseInt(nomeCampo)-2000];
                         values.add(value);
             }
             }
@@ -233,13 +220,12 @@ public class ContrNazServizio {
      * @param nomeCampo campo da filtrare
      * @param oper  operatore di confronto
      * @param rif valore di riferimento
-     * @param anno eventuale anno su cui applicare il filtro per il contributo
      * @return lista di oggetti che soddisfano il filtro
      */
 
     //da modificare
-    public List<ContributoNazione> getDatiFiltrati(String nomeCampo, String oper, Object rif, int ... anno) {
-        List<Integer> filtrati = Filtri.filtra(getFieldValues(nomeCampo, anno), oper, rif);    //applico il filtro alla lista
+    public List<ContributoNazione> getDatiFiltrati(String nomeCampo, String oper, Object rif) {
+        List<Integer> filtrati = Filtri.filtra(getFieldValues(nomeCampo), oper, rif);    //applico il filtro alla lista
         List<ContributoNazione> risultatoFiltro = new ArrayList<>(); //aggiungo alla lista solo gli oggetti che soddisfano le specifiche del filtro attraverso gli indici
         for (int i : filtrati) {
             risultatoFiltro.add(contributi.get(i));

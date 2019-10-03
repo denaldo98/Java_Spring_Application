@@ -1,4 +1,4 @@
-package com.denapoli.progettoop.servizio;
+package com.denapoli.progettoop.service;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
 
@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 public class Metadata {
-    private List<Map> metadata = new ArrayList<>();//lista per i metadati
+    private List<Map> metadata = new ArrayList<>();         //lista per i metadati
 
     public Metadata() {
         /*Il costruttore genera la lista dei metadati relativi al dataset considerato
