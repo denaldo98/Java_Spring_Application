@@ -110,6 +110,8 @@ public abstract class Statistiche {
      * @param lista lista dei valori del campo
      * @return Map che ha come chiavi i nomi delle statistiche calcolabili sul campo e associati i rispettivi valori
      */
+
+    // da modificare
     public static Map<String, Object> getTutteStatistiche(String nomeCampo, List lista) {
         Map<String, Object> m = new HashMap<>();
         m.put("campo", nomeCampo);

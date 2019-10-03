@@ -26,70 +26,86 @@ import java.util.*;
  */
 @Service
 public class ContrNazServizio {
-    private final static String COMMA_DELIMITER = ";";
-    private List<ContributoNazione> contributi = new ArrayList<>();
-    public Metadata metadata;
+    private final static String COMMA_DELIMITER = ";"; //separatore CSV
+    private List<String> anni=new ArrayList<>();
+    private List<ContributoNazione> contributi = new ArrayList<>();     //lista di istanze della classe modellante
+    public Metadata metadata;           //metadata
 
     /**
      * Costruttore per scaricare il dataset e fare il parsing del csv
      */
     public ContrNazServizio() {
+        for(int i=0;i<ContributoNazione.intervalloAnni;i++)   //da spostare?
+            anni.add(Integer.toString(2000+i));
         String fileCSV = "dataset.csv";
-        if (Files.exists ( Paths.get ( fileCSV ) )) {
-            parsing ( fileCSV );
+        if (Files.exists ( Paths.get ( fileCSV ) )) {       //verifico esistenza del file
             System.out.println ( "Dataset caricato da file locale" );
         } else
             try {
-                URLConnection openConnection = new URL ("http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA" ).openConnection ();
+                URLConnection openConnection = new URL ("http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA" ).openConnection (); //apro connessione ad url della mail
                 openConnection.addRequestProperty ( "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" );
                 InputStream in = openConnection.getInputStream ();
                 StringBuilder data = new StringBuilder ();
                 String line = "";
                 try {
+                    //lettura JSON e salvataggio su stringa
                     InputStreamReader inR = new InputStreamReader ( in );
                     BufferedReader buf = new BufferedReader ( inR );
-                    while ((line = buf.readLine ()) != null) {
+                    while ((line = buf.readLine ()) != null) { //basterebbe anche una sola lettura poichè il JSON è su una sola riga
                         data.append ( line );
                     }
                 } finally {
                     in.close ();
                 }
+                //conversione StringBuilder in oggetto JSON
                 JSONObject obj = (JSONObject) JSONValue.parseWithException ( data.toString () );
                 JSONObject objI = (JSONObject) (obj.get ( "result" ));
                 JSONArray objA = (JSONArray) (objI.get ( "resources" ));
 
-                for (Object o : objA) {
+                for (Object o : objA) { //scorro tutti gli oggetti fino a trovare quello di formato corretto
                     if (o instanceof JSONObject) {
                         JSONObject o1 = (JSONObject) o;
-                        String format = (String) o1.get ( "format" );
+                        String format = (String) o1.get ( "format" ); //mi sposto all'interno del JSON per trovare l'url desiderato
                         String urlD = (String) o1.get ( "url" );
 
-                        if (format.equals ( "http://publications.europa.eu/resource/authority/file-type/CSV" )) {
-                            download ( urlD, fileCSV );
+                        if (format.equals ( "http://publications.europa.eu/resource/authority/file-type/CSV" )) { //verifico che il formato sia quello desiderato
+                            download ( urlD, fileCSV ); //effettuo il download
                         }
                     }
                 }
-                System.out.println ( "OK" );
+                System.out.println ( "Effettuato download CSV" );
             } catch (Exception e) {
                 e.printStackTrace ();
             }
-        parsing ( fileCSV );
-        metadata = new Metadata ();
+        parsing ( fileCSV ); //effettuo il parsing
+        metadata = new Metadata (); //costruttore classe Metadata
     } //fine costruttore
 
+
+    /**
+     * Metodo che effettua il download del CSV su file locale
+     *
+     * @param url url del CSV
+     * @param fileName nome del file su cui salvare il dataset
+     * @throws Exception eccezione download
+     */
     private static void download(String url, String fileName) throws Exception {
             try ( InputStream in = URI.create ( url ).toURL ().openStream () ) {
                 Files.copy ( in, Paths.get ( fileName ) );
             }
         }
 
-
+    /**
+     * Metodo che effettua il parsing del CSV
+     *
+     * @param fileCSV file del quale effettuare il parsing
+     */
 
 
 
     private void parsing(String fileCSV) {
         try ( BufferedReader bffr = new BufferedReader ( new FileReader ( fileCSV ) ) ) {
-            bffr.readLine (); // salto la prima riga
+            bffr.readLine (); // salto la prima riga poichè contiene intestazione
             String riga;
             while ((riga = bffr.readLine ()) != null) {    // leggo ogni riga del file
                 //sostituisco le virgole con ; che utilizzerò come separatore
@@ -141,6 +157,8 @@ public class ContrNazServizio {
      * @param anno eventuale anno se si scegli il campo contributo
      * @return Map contenente le statistiche
      */
+
+    //da modificare
     public Map getStatistiche(String fieldName, int... anno) {
         if(anno.length == 1) {
             return Statistiche.getTutteStatistiche(fieldName+(anno[0]+2000), getFieldValues(fieldName, anno[0]));
@@ -154,6 +172,8 @@ public class ContrNazServizio {
      *
      * @return lista di mappe contenenti le statistiche relative ad ogni campo
      */
+
+    //da modificare
     public List<Map> getStatistiche() {
         Field[] fields = ContributoNazione.class.getDeclaredFields();// questo ci da l'elenco di tutti gli attributi della classe
         List<Map> list = new ArrayList<>();
@@ -176,6 +196,8 @@ public class ContrNazServizio {
      * @param anno  anno rispetto al quale estrarre i valori
      * @return lista dei valori del campo richiesto
      */
+
+    //da modificare
     private List getFieldValues(String nomeCampo, int... anno) {
         List<Object> values = new ArrayList<>();
         try {
@@ -214,6 +236,8 @@ public class ContrNazServizio {
      * @param anno eventuale anno su cui applicare il filtro per il contributo
      * @return lista di oggetti che soddisfano il filtro
      */
+
+    //da modificare
     public List<ContributoNazione> getDatiFiltrati(String nomeCampo, String oper, Object rif, int ... anno) {
         List<Integer> filtrati = Filtri.filtra(getFieldValues(nomeCampo, anno), oper, rif);    //applico il filtro alla lista
         List<ContributoNazione> risultatoFiltro = new ArrayList<>(); //aggiungo alla lista solo gli oggetti che soddisfano le specifiche del filtro attraverso gli indici

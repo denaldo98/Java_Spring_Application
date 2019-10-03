@@ -15,7 +15,6 @@ import java.util.Map;
 @RestController
 public class ContrNazControllore {
     private ContrNazServizio servizio;
-
     /**
      * L'annotazione @Autowired lancia automaticamente il costruttore all'avvio di Spring
      * @param servizio riferimento all'istanza del servizio
@@ -61,22 +60,18 @@ public class ContrNazControllore {
     }
 
 
-
     /**
      * Metodo per gestire la richiesta GET alla rotta "/stats", restituendo le statistiche
      *
-     * @param nomeCampo parametro opzionale per richiedere le statistiche di un solo campo
+     * @param nomeCampo nome del campo per statistiche o anno su cui calcolare statistiche numeriche, se non viene inserito vengono fornite le statistiche su ogni campo
      * @return lista contenente le statistiche richieste
      */
     @GetMapping("/stats") //da modificare: possibile chiamata metodo nel caso contributo che prende anno come unico parametro
-    public List getStats(@RequestParam(value = "field", required = false, defaultValue = "") String nomeCampo, @RequestParam(value = "anno", required = false, defaultValue = "2000") int anno) {
+    public List getStats(@RequestParam(value = "field", required = false, defaultValue = "") String nomeCampo) {
         if (nomeCampo.equals("")) {
             return servizio.getStatistiche();
         } else {
             List<Map> lista = new ArrayList<>();
-            if(nomeCampo.equals("contributo"))
-                lista.add(servizio.getStatistiche("contributo",anno));
-            else
                 lista.add(servizio.getStatistiche(nomeCampo));
             return lista;
         }
