@@ -37,6 +37,8 @@ public class ContributoNazione implements Serializable{
     public String getAid_instr() { return aid_instr; }
     public double[] getContributo() { return contributo; }
 
+    //i metodi set
+
     /**
      * Metodo toString per stampare l'oggetto
      *

@@ -110,18 +110,17 @@ public abstract class Statistiche {
      * @param lista lista dei valori del campo
      * @return Map che ha come chiavi i nomi delle statistiche calcolabili sul campo e associati i rispettivi valori
      */
-
-    // dovrebbe essere ok
     public static Map<String, Object> getTutteStatistiche(String nomeCampo, List lista) {
         Map<String, Object> m = new HashMap<>();
         m.put("campo", nomeCampo);
-        if (!lista.isEmpty()) {
+        if (!lista.isEmpty()) { //calcolo le statistiche solo se la lista non è vuota
             if (ContrNazService.anni.contains(nomeCampo) ) {        // calcola le statistiche numeriche rispetto all'anno scelto
                 //converto la lista generica in lista di double
                 List<Double> listNum = new ArrayList<>();
                 for (Object o : lista){
                     listNum.add(((Double) o));
                 }
+                //riempio la mappa con le statistiche numeriche relative all'anno richiesto
                 m.put("avg", avg(listNum));
                 m.put("min", min(listNum));
                 m.put("max", max(listNum));
@@ -129,7 +128,7 @@ public abstract class Statistiche {
                 m.put("sum", sum(listNum));
                 m.put("count", count(listNum));
                 return m;
-            } else {        // calcola le statistiche non numeriche
+            } else {        // calcola le statistiche non numeriche se nomeCampo non è uno degli anni gestiti
                 m.put("elementiUnici", contaElementiUnici(lista));
                 m.put("count", count(lista));
             }

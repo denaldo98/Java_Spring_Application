@@ -35,7 +35,7 @@ public class ContrNazService {
      * Costruttore per scaricare il dataset e fare il parsing del csv
      */
     public ContrNazService() {
-        for(int i=0;i<ContributoNazione.intervalloAnni;i++)   //da spostare?
+        for(int i=0;i<ContributoNazione.intervalloAnni;i++)   //riempiamo la lista con gli anni gestiti
             anni.add(Integer.toString(2000+i));
         String fileCSV = "dataset.csv";
         if (Files.exists ( Paths.get ( fileCSV ) )) {       //verifico esistenza del file
@@ -126,7 +126,7 @@ public class ContrNazService {
         }
     }
 
-        /**
+     /**
      * Restituisce il dataset completo
      *
      * @return tutta la lista di oggetti
@@ -135,6 +135,14 @@ public class ContrNazService {
         return contributi;
     }
 
+    /**
+     * Restituisce gli anni gestiti
+     *
+     * @return la lista di anni gestiti
+     */
+    public List getAnni (){
+        return anni;
+    }
     /**
      * Restituisce l'oggetto che corrisponde all'indice passato
      *

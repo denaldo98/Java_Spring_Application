@@ -24,6 +24,7 @@ public class ContrNazController {
         this.service = service;
     }
 
+
     //Metodi che attraverso l'utilizzo di una richiesta GET all'url indicato restituiranno differenti oggetti
 
     /**
@@ -59,15 +60,26 @@ public class ContrNazController {
         return service.metadata.getMetadata();
     }
 
+    /**
+     * Metodo per gestire la richiesta GET alla rotta "/anni", restituendo la lista di anni gestiti
+     *
+     * @return lista contenete gli anni gestiti
+     */
+    @GetMapping("/anni")
+    public List getAnni() {
+        return service.getAnni();
+    }
+
+
 
     /**
-     * Metodo per gestire la richiesta GET alla rotta "/stats", restituendo le statistiche
+     * Metodo per gestire la richiesta GET alla rotta "/statistiche", restituendo le statistiche
      *
      * @param nomeCampo nome del campo per statistiche o anno su cui calcolare statistiche numeriche, se non viene inserito vengono fornite le statistiche su ogni campo
      * @return lista contenente le statistiche richieste
      */
-    @GetMapping("/stats") //da modificare? nomeCampo unico paramentro, prova
-    public List getStats(@RequestParam(value = "field", required = false, defaultValue = "") String nomeCampo) {
+    @GetMapping("/statistiche") //da modificare? nomeCampo unico paramentro, prova
+    public List getStats(@RequestParam(value = "campo", required = false, defaultValue = "") String nomeCampo) {
         if (nomeCampo.equals("")) {
             return service.getStatistiche();
         } else {
