@@ -1,4 +1,6 @@
 package com.denapoli.progettoop.modello;
+import com.denapoli.progettoop.service.Utilities;
+
 import java.io.Serializable;
 
 /**

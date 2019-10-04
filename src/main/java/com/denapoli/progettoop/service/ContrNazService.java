@@ -1,7 +1,6 @@
 package com.denapoli.progettoop.service;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
-import com.denapoli.progettoop.modello.Utilities;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -47,7 +46,7 @@ public class ContrNazService {
                 openConnection.addRequestProperty ( "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" ); //aggiungo user-agent alla connessione
                 InputStream in = openConnection.getInputStream ();
                 StringBuilder data = new StringBuilder ();
-                String line = "";
+                String line;
                 try {
                     //lettura JSON e salvataggio su stringa
                     InputStreamReader inR = new InputStreamReader ( in );

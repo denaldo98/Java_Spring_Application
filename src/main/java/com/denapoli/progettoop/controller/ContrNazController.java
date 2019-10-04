@@ -17,9 +17,12 @@ import java.util.Map;
 @RestController
 public class   ContrNazController {
     private ContrNazService service;
+
+
     /**
-     * L'annotazione @Autowired lancia automaticamente il costruttore all'avvio di Spring
-     * @param service riferimento all'istanza del servizio
+     * Metodo costruttore: l'annotazione @Autowired lancia automaticamente il costruttore all'avvio di Spring
+     *
+     * @param service riferimento all'istanza del service
      */
     @Autowired //dependency injection
     public ContrNazController(ContrNazService service) {
@@ -27,29 +30,16 @@ public class   ContrNazController {
     }
 
 
-    //Metodi che attraverso l'utilizzo di una richiesta GET all'url indicato restituiranno differenti oggetti
+    //Metodi che, tramite l'utilizzo di una richiesta GET all'url indicato, restituiscono differenti oggetti
 
     /**
      * Metodo per gestire la richiesta GET alla rotta "/data", restituendo l'intero dataset
      *
-     * @return lista di tutti gli oggetti del dataset
+     * @return lista contenente gli oggetti del dataset
      */
-    //la rotta è la parte dell'url dopo dominio:porta es.: localhost:8080/data
     @GetMapping("/data")
     public List getData() {
         return service.getData();
-    }
-
-    /**
-     * Metodo per gestire la richiesta GET alla rotta "/data/{id}", restituendo il record del dataset corrispondente a {id}
-     * {id} è pertanto da sosttuire con l'id del record desiderato
-     *
-     * @param id id del record desiderato
-     * @return oggetto corrispondente all'id richiesto
-     */
-    @GetMapping("/data/{id}")
-    public ContributoNazione getContrNazId(@PathVariable int id) {
-        return service.getContrNaz(id);
     }
 
 
@@ -61,6 +51,18 @@ public class   ContrNazController {
     @GetMapping("/metadata")
     public List getMetadata() {
         return service.metadata.getMetadata();
+    }
+
+
+    /**
+     * Metodo per gestire la richiesta GET alla rotta "/data/i" e ritorna il record i-esimo del dataset
+     *
+     * @param i indice del record desiderato
+     * @return oggetto corrispondente all'id richiesto
+     */
+    @GetMapping("/data/i")
+    public ContributoNazione getContrNazId(@PathVariable int i) {
+        return service.getContrNaz(i);
     }
 
 
@@ -78,20 +80,24 @@ public class   ContrNazController {
     /**
      * Metodo per gestire la richiesta GET alla rotta "/statistiche", restituendo le statistiche
      *
-     * @param nomeCampo nome del campo per statistiche o anno su cui calcolare statistiche numeriche, se non viene inserito vengono fornite le statistiche su ogni campo
+     * @param nomeCampo nome del campo o anno su cui calcolare statistiche, se non viene inserito vengono fornite le statistiche su ogni campo
      * @return lista contenente le statistiche richieste
      */
     @GetMapping("/statistiche")
-    public List getStats(@RequestParam(value = "campo", required = false, defaultValue = "") String nomeCampo) {
-        if (nomeCampo.equals("")) {
-            return service.getStatistiche();
-        } else {
+    public List getStatistiche(@RequestParam(value = "campo", required = false, defaultValue = "") String nomeCampo) {
+        if (!nomeCampo.equals("")) { //verifico se è stato inserito un campo
             List<Map> lista = new ArrayList<>();
-                lista.add(service.getStatistiche(nomeCampo));
+            lista.add(service.getStatistiche(nomeCampo)); //calcolo le statistiche sul campo inserito
             return lista;
-        }
+        } else return service.getStatistiche(); // se non viene inserito un campo calcolo tutte le statistiche
     }
-    //Metodi POST
+
+
+
+
+
+
+    //Richieste POST per gestione filtri
 
     /**
      * Metodo per eseguire il parsing del filtro passato tramite body di una POST
@@ -119,6 +125,7 @@ public class   ContrNazController {
         filtro.put("rif", rif);
         return filtro;
     }
+
 
 
     /**
