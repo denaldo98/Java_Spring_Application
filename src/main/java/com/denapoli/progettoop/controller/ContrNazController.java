@@ -52,6 +52,7 @@ public class   ContrNazController {
         return service.getContrNaz(id);
     }
 
+
     /**
      * Metodo per gestire la richiesta GET alla rotta "/metadata", restituendo i metadati
      *
@@ -61,6 +62,7 @@ public class   ContrNazController {
     public List getMetadata() {
         return service.metadata.getMetadata();
     }
+
 
     /**
      * Metodo per gestire la richiesta GET alla rotta "/anni", restituendo la lista di anni gestiti
@@ -73,14 +75,13 @@ public class   ContrNazController {
     }
 
 
-
     /**
      * Metodo per gestire la richiesta GET alla rotta "/statistiche", restituendo le statistiche
      *
      * @param nomeCampo nome del campo per statistiche o anno su cui calcolare statistiche numeriche, se non viene inserito vengono fornite le statistiche su ogni campo
      * @return lista contenente le statistiche richieste
      */
-    @GetMapping("/statistiche") //da modificare? nomeCampo unico paramentro, prova
+    @GetMapping("/statistiche")
     public List getStats(@RequestParam(value = "campo", required = false, defaultValue = "") String nomeCampo) {
         if (nomeCampo.equals("")) {
             return service.getStatistiche();
@@ -90,8 +91,7 @@ public class   ContrNazController {
             return lista;
         }
     }
-
-
+    //Metodi POST
 
     /**
      * Metodo per eseguire il parsing del filtro passato tramite body di una POST
@@ -120,6 +120,7 @@ public class   ContrNazController {
         return filtro;
     }
 
+
     /**
      * Metodo che gestisce una richiesta POST alla rotta "/data", resituendo la lista dei record che soddisfano il filtro
      *
@@ -135,32 +136,28 @@ public class   ContrNazController {
         return service.getDatiFiltrati(nomeCampo, oper, rif);
     }
 
+
     /**
      * Metodo che gestisce la richiesta POST alla rotta "/statistiche", restiuisce le statistiche sul campo richiesto (opzionale) o su tutti i campi, considerando soltanto i record che soddisfano il filtro
      *
-     * @param fieldName campo di cui si richiedono le statistiche (opzionale)
+     * @param nomeCampo campo di cui si richiedono le statistiche (opzionale)
      * @param body      body della richiesta POST che contiene il filtro
      * @return lista contenente le statistiche richieste
      */
     @PostMapping("/statistiche")
-    public List<Map> getStatisticheFiltrate(@RequestParam(value = "campo", required = false, defaultValue = "") String fieldName, @RequestBody String body) {
+    public List<Map> getStatisticheFiltrate(@RequestParam(value = "campo", required = false, defaultValue = "") String nomeCampo, @RequestBody String body) {
         Map<String, Object> filtro = parseFiltro(body);
         String campoFiltro = (String) filtro.get("field");
         String oper = (String) filtro.get("oper");
         Object rif = filtro.get("rif");
-        if (fieldName.equals("")) {
+        if (nomeCampo.equals("")) {
             return service.getStatisticheFiltrate(campoFiltro, oper, rif);
         } else {
             List<Map> lista = new ArrayList<>();
-            lista.add(service.getStatisticheFiltrate(fieldName, campoFiltro, oper, rif));
+            lista.add(service.getStatisticheFiltrate(nomeCampo, campoFiltro, oper, rif));
             return lista;
         }
     }
-
-
-
-
-
 }
 
 
