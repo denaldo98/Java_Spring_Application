@@ -2,9 +2,9 @@ package com.denapoli.progettoop.service;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
 
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONValue;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
+import org.json.simple.JSONObject;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
