@@ -1,5 +1,4 @@
 package com.denapoli.progettoop.modello;
-
 import java.io.Serializable;
 
 /**
@@ -11,7 +10,6 @@ public class ContributoNazione implements Serializable{
     private String unit;
     private String aid_instr;
     private double[] contributo;
-    public static final int intervalloAnni=18;
 
     /**
      * Costruttore della classe
@@ -49,7 +47,7 @@ public class ContributoNazione implements Serializable{
                 ", geo='" + geo + '\'' +
                 ", unit='" + unit + '\'' +
                 ", aid_instr='" + aid_instr + '\'');
-        for(int i=0; i<intervalloAnni; i++ ) s.append(" anno=").append(2000 + i).append(" contributo=").append(contributo[i]).append(";");
+        for(int i = 0; i< Utilities.intervalloAnni; i++ ) s.append(" anno=").append(2000 + i).append(" contributo=").append(contributo[i]).append(";");
         s.append('}');//ciclo per accodare i valori annuali alla stringa di ritorno
         return s.toString();
     }

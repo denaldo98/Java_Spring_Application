@@ -1,11 +1,10 @@
 package com.denapoli.progettoop.service;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
-
+import com.denapoli.progettoop.modello.Utilities;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONValue;
 import org.json.simple.JSONObject;
-
+import org.json.simple.JSONValue;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,7 +18,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Classe che carica il dataset gestendone l'accesso
@@ -35,7 +36,7 @@ public class ContrNazService {
      * Costruttore per scaricare il dataset e fare il parsing del csv
      */
     public ContrNazService() {
-        for(int i=0; i<ContributoNazione.intervalloAnni; i++) //riempiamo la lista con gli anni gestiti
+        for(int i = 0; i< Utilities.intervalloAnni; i++) //riempiamo la lista con gli anni gestiti
             anni.add(Integer.toString(2000+i));
         String fileCSV = "dataset.csv"; //file in cui salvare il dataset
         if (Files.exists ( Paths.get ( fileCSV ) )) { //verifico esistenza del file
@@ -111,8 +112,8 @@ public class ContrNazService {
                 String geo = rigaSeparata[1].trim ();
                 String unit = rigaSeparata[2].trim ();
                 String aid_instr = rigaSeparata[3].trim ();
-                double[] contributo = new double[ContributoNazione.intervalloAnni]; //vettore di double che conterrà i contributi annui
-                for (int i=0; i<ContributoNazione.intervalloAnni; i++) {
+                double[] contributo = new double[Utilities.intervalloAnni]; //vettore di double che conterrà i contributi annui
+                for (int i = 0; i< Utilities.intervalloAnni; i++) {
                     contributo[i] = Double.parseDouble ( rigaSeparata[4 + i].trim () ); // riempimento vettore
                 }
                 // prendendo i valori ottenuti dal parsing, creo un nuovo oggetto e lo inserisco nella lista
@@ -175,7 +176,7 @@ public class ContrNazService {
         for (Field f : fields) {
             String fieldName = f.getName(); //f è l'oggetto di tipo fieldsName estrae il nome del campo corrente
             if(fieldName.equals("contributo")) //gestione vettore di double contributo
-                for( int i=0; i<ContributoNazione.intervalloAnni; i++)
+                for(int i = 0; i< Utilities.intervalloAnni; i++)
                     list.add(getStatistiche(Integer.toString(2000+i) ));
                 else list.add(getStatistiche(fieldName)); //va ad aggiungere alla lista  la mappa che contiene le statistiche del campo fieldName
         }
@@ -249,7 +250,7 @@ public class ContrNazService {
         for (Field f : fields) {
             String nomeCampo = f.getName ();//f è l'oggetto di tipo field, con getName si estrae il nome del campo corrente
             if(nomeCampo.equals ("contributo")) //gestione campo contributo con anni
-                for(int i=0; i<ContributoNazione.intervalloAnni; i++)
+                for(int i = 0; i< Utilities.intervalloAnni; i++)
                     lista.add( getStatisticheFiltrate ( Integer.toString(i+2000), campoFiltro, oper, rif )); //calcolo statistiche per ogni anno e aggiungo la mappa alla lista
                 else //gestione altri campi
                 lista.add ( getStatisticheFiltrate ( nomeCampo, campoFiltro, oper, rif ) );//calcolo statistiche per altri campo e aggiungo la mappa alla lista

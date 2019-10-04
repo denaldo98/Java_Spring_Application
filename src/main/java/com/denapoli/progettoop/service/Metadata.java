@@ -24,9 +24,9 @@ public class Metadata {
             Map<String, String> map = new HashMap<>(); //inizializzo la mappa che conterrà i metadati
             //inseriamo le coppie nome valore
             map.put("alias", f.getName());
-            if(!f.getName().equals( "contributo" ) && !f.getName().equals( "intervalloAnni" ))
+            if(!f.getName().equals( "contributo" ))
             map.put("sourceField", f.getName().toUpperCase()); //nome del campo nel csv
-            else if(f.getName().equals( "contributo" )) map.put("sourceField","TIME_PERIOD"); //gestiamo il caso contributo (vettore)
+            else map.put("sourceField","TIME_PERIOD"); //gestiamo il caso contributo (vettore)
             map.put("type", f.getType().getSimpleName());
             metadata.add(map); //aggiungo la mappa ai metadati
         }
