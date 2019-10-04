@@ -13,7 +13,6 @@ public class ContributoNazione implements Serializable{
     private double[] contributo;
     public static final int intervalloAnni=18;
 
-
     /**
      * Costruttore della classe
      *
@@ -37,8 +36,6 @@ public class ContributoNazione implements Serializable{
     public String getAid_instr() { return aid_instr; }
     public double[] getContributo() { return contributo; }
 
-    //i metodi set
-
     /**
      * Metodo toString per stampare l'oggetto
      *
@@ -46,7 +43,7 @@ public class ContributoNazione implements Serializable{
      */
     @Override
     public String toString() {
-        StringBuilder s;
+        StringBuilder s; //oggetto di tipo StringBuilder
         s = new StringBuilder("ContributoNazione{" +
                 "freq=" + freq +
                 ", geo='" + geo + '\'' +

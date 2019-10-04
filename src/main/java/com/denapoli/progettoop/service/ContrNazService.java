@@ -27,23 +27,23 @@ import java.util.*;
 @Service
 public class ContrNazService {
     private final static String COMMA_DELIMITER = ";"; //separatore CSV
-    public static List<String> anni=new ArrayList<>(); //predispongo lista di stringhe per controllo campo contributi con anno
-    private List<ContributoNazione> contributi = new ArrayList<>();     //lista di istanze della classe modellante
-    public Metadata metadata;           //metadata
+    static List<String> anni=new ArrayList<>(); //predispongo lista di stringhe per controllo campo contributi con anno
+    private List<ContributoNazione> contributi = new ArrayList<>(); //lista di istanze della classe modellante
+    public Metadata metadata; //metadata
 
     /**
      * Costruttore per scaricare il dataset e fare il parsing del csv
      */
     public ContrNazService() {
-        for(int i=0;i<ContributoNazione.intervalloAnni;i++)   //riempiamo la lista con gli anni gestiti
+        for(int i=0; i<ContributoNazione.intervalloAnni; i++) //riempiamo la lista con gli anni gestiti
             anni.add(Integer.toString(2000+i));
-        String fileCSV = "dataset.csv";
-        if (Files.exists ( Paths.get ( fileCSV ) )) {       //verifico esistenza del file
+        String fileCSV = "dataset.csv"; //file in cui salvare il dataset
+        if (Files.exists ( Paths.get ( fileCSV ) )) { //verifico esistenza del file
             System.out.println ( "Dataset caricato da file locale" );
         } else
             try {
                 URLConnection openConnection = new URL ("http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA" ).openConnection (); //apro connessione ad url della mail
-                openConnection.addRequestProperty ( "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" );
+                openConnection.addRequestProperty ( "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" ); //aggiungo user-agent alla connessione
                 InputStream in = openConnection.getInputStream ();
                 StringBuilder data = new StringBuilder ();
                 String line = "";
@@ -64,7 +64,7 @@ public class ContrNazService {
 
                 for (Object o : objA) { //scorro tutti gli oggetti fino a trovare quello di formato corretto
                     if (o instanceof JSONObject) {
-                        JSONObject o1 = (JSONObject) o;
+                        JSONObject o1 = (JSONObject) o; //converto il generico Object in JSONObject
                         String format = (String) o1.get ( "format" ); //mi sposto all'interno del JSON per trovare l'url desiderato
                         String urlD = (String) o1.get ( "url" );
 
@@ -73,7 +73,7 @@ public class ContrNazService {
                         }
                     }
                 }
-                System.out.println ( "Effettuato download CSV" );
+                System.out.println ( "Effettuato download del CSV" );
             } catch (Exception e) {
                 e.printStackTrace ();
             }
@@ -81,17 +81,16 @@ public class ContrNazService {
         metadata = new Metadata (); //costruttore classe Metadata->generiamo i metadati in modo da restituirli quando richiesto
     }
 
-
     /**
-     * Metodo che effettua il download del CSV su file locale
+     * Metodo che effettua il download del CSV su file locale passato come parametro
      *
      * @param url url del CSV
-     * @param fileName nome del file su cui salvare il dataset
+     * @param NomeFile nome del file su cui salvare il dataset
      * @throws Exception eccezione download
      */
-    private static void download(String url, String fileName) throws Exception {
+    private static void download(String url, String NomeFile) throws Exception {
             try ( InputStream in = URI.create ( url ).toURL ().openStream () ) {
-                Files.copy ( in, Paths.get ( fileName ) );
+                Files.copy ( in, Paths.get ( NomeFile ) );
             }
         }
 
@@ -108,13 +107,13 @@ public class ContrNazService {
                 riga = riga.replace ( ",", COMMA_DELIMITER ); //sostituisco le virgole con ; che utilizzerò come separatore
                 String[] rigaSeparata = riga.trim ().split ( COMMA_DELIMITER ); //uso split per dividere la riga in corrispondenza dei separatori, con trim elimino i caratteri non visibili
                 // prendiamo i valori dei singoli campi dalla riga
-                char freq = rigaSeparata[0].trim ().charAt ( 0 );//freq è di tipo char
+                char freq = rigaSeparata[0].trim ().charAt ( 0 ); //freq è di tipo char
                 String geo = rigaSeparata[1].trim ();
                 String unit = rigaSeparata[2].trim ();
                 String aid_instr = rigaSeparata[3].trim ();
-                double[] contributo = new double[ContributoNazione.intervalloAnni];
-                for (int i = 0; i < ContributoNazione.intervalloAnni; i++) {
-                    contributo[i] = Double.parseDouble ( rigaSeparata[4 + i].trim () );
+                double[] contributo = new double[ContributoNazione.intervalloAnni]; //vettore di double che conterrà i contributi annui
+                for (int i=0; i<ContributoNazione.intervalloAnni; i++) {
+                    contributo[i] = Double.parseDouble ( rigaSeparata[4 + i].trim () ); // riempimento vettore
                 }
                 // prendendo i valori ottenuti dal parsing, creo un nuovo oggetto e lo inserisco nella lista
                 ContributoNazione nuova = new ContributoNazione ( freq, geo, unit, aid_instr, contributo );
@@ -143,6 +142,7 @@ public class ContrNazService {
     public List getAnni (){
         return anni;
     }
+
     /**
      * Restituisce l'oggetto che corrisponde all'indice passato
      *
@@ -173,12 +173,11 @@ public class ContrNazService {
         Field[] fields = ContributoNazione.class.getDeclaredFields();// otteniamo l'elenco di tutti gli attributi della classe
         List<Map> list = new ArrayList<>(); //inizializzo lista di mappe che conterrà le statistiche
         for (Field f : fields) {
-            String fieldName = f.getName();//f è l'oggetto di tipo fieldsName estrae il nome del campo corrente
+            String fieldName = f.getName(); //f è l'oggetto di tipo fieldsName estrae il nome del campo corrente
             if(fieldName.equals("contributo")) //gestione vettore di double contributo
                 for( int i=0; i<ContributoNazione.intervalloAnni; i++)
                     list.add(getStatistiche(Integer.toString(2000+i) ));
-                else list.add(getStatistiche(fieldName));//va ad aggiungere alla lista  la mappa che contiene le statistiche del campo fieldName
-
+                else list.add(getStatistiche(fieldName)); //va ad aggiungere alla lista  la mappa che contiene le statistiche del campo fieldName
         }
         return list;
     }
@@ -257,7 +256,8 @@ public class ContrNazService {
         }
         return lista; //ritorno la lista di mappe ottenuta
     }
-        /**
+
+    /**
      * Metodo che, applicando un filtro, restituisce le statistiche relative ad un campo
      *
      * @param campoStatistiche campo del quale si richiedono le statistiche

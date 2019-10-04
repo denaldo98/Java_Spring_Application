@@ -15,7 +15,7 @@ import java.util.Map;
  *  Controller Spring per gestire le richieste dell'utente
  */
 @RestController
-public class ContrNazController {
+public class   ContrNazController {
     private ContrNazService service;
     /**
      * L'annotazione @Autowired lancia automaticamente il costruttore all'avvio di Spring
