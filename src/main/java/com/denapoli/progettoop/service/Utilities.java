@@ -1,6 +1,9 @@
 package com.denapoli.progettoop.service;
 
-public class Utilities {
-    public static final int intervalloAnni = 18;
+/**
+ * Classe contenente eventuali variabili e metodi di utilità
+ */
+public abstract class Utilities {
+    public static final int intervalloAnni = 18; //costante per l'intervallo di anni considerato nel dataset
 
 }

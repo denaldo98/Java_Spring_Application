@@ -17,7 +17,7 @@ public class Filtri {
     /**
      * Metodo per confrontare in base all'operatore inserito il valore val e il riferimento rif
      *
-     * @param val  valore sul quale applicare l'operatore
+     * @param val  valore sul quale applicare l'operatore (filtro)
      * @param oper operatore da applicare
      * @param rif  valore di riferimento
      * @return boolean
@@ -26,7 +26,7 @@ public class Filtri {
         if (operatori.contains(oper)) { //controllo che l'operatore sia uno di quelli gestiti
             if (val instanceof Number) { //caso in cui il valore da controllare sia un numero
                 double valNum = ((Number) val).doubleValue(); //cast in double
-                if (rif instanceof Number) { //caso in cui il riferimento sia un numero
+                if (rif instanceof Number) { //caso in cui anche il riferimento sia un numero
                     double rifNum = ((Number) rif).doubleValue(); //cast in double
                     switch (oper) { //selezione operatore corrispondente, non uso break poichè ho il return
                         case "$not":
@@ -129,7 +129,7 @@ public class Filtri {
      * @param rif valore di riferimento
      * @return lista con gli indici dei valori che soddisfano il filtro
      */
-    static List<Integer> filtra(List val, String oper, Object rif) {
+    public static List<Integer> filtra(List val, String oper, Object rif) {
         List<Integer> filtrati = new ArrayList<>();
         for (int i = 0; i < val.size(); i++) {
             if (check(val.get(i), oper, rif)) // eseguiamo il controllo per ogni elemento della lista: se soddisfatto aggiungo l'indice alla lista
