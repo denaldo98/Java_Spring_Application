@@ -74,6 +74,7 @@ Il filtro va inserito nel body con il seguente formato:
 
 ### Esempi di richieste GET/POST
 Risultati ottenuti mediante Postman
+
 [localhost:8080/anni](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Anni.PNG)
 
 [localhost:8080/statistiche?campo=2021](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Campo%20errato.PNG) (esempio campo errato)
