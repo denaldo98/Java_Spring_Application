@@ -55,14 +55,14 @@ public class   ContrNazController {
 
 
     /**
-     * Metodo per gestire la richiesta GET alla rotta "/data/i" e ritorna il record i-esimo del dataset
+     * Metodo per gestire la richiesta GET alla rotta "/data/{id}" e ritorna il record del dataset di indice id
      *
-     * @param i indice del record desiderato
+     * @param id indice del record desiderato
      * @return oggetto corrispondente all'id richiesto
      */
-    @GetMapping("/data/i")
-    public ContributoNazione getContrNazId(@PathVariable int i) {
-        return service.getContrNaz(i);
+    @GetMapping("/data/{id}")
+    public ContributoNazione getContrNazId(@PathVariable int id) {
+        return service.getContrNaz(id);
     }
 
 
