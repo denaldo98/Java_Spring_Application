@@ -75,14 +75,23 @@ Il filtro va inserito nel body con il seguente formato:
 ### Esempi di richieste GET/POST
 Risultati ottenuti mediante Postman
 [localhost:8080/anni](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Anni.PNG)
+
 [localhost:8080/statistiche?campo=2021](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Campo%20errato.PNG) (esempio campo errato)
+
 [localhost:8080/data | body: {"2000" : {"$gt" : 20000}}](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Contributo_2000%24gt_20000.PNG)
+
 [localhost:8080/data/1](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Dati%201.PNG)
+
 [localhost:8080/data](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Dati.PNG)
+
 [localhost:8080/metadata](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Metadati.PNG)
+
 [localhost:8080/statistiche?campo=freq](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Statistiche%20freq.PNG)
+
 [localhost:8080/statitiche](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Statistiche.PNG)
+
 [localhost:8080/statistiche?campo=2003](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Stiatistiche%202003.PNG)
+
 [localhost:8080/operatori](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/operatori.PNG)
 
 
