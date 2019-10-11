@@ -85,7 +85,7 @@ Statistiche non numeriche:
  - CONTA ELEMENTI UNINCI (contaElementiUnici);
  - CONTEGGIO (count).
 
-### Operatori di filtaggio implementati
+### Operatori di filtraggio implementati
  - $not : operatore di disuguaglianza;
  - $in : operatore che verifica l'appartenenza;
  - $nin : operatore di non appartenenza;
