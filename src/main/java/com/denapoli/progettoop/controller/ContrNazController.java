@@ -87,7 +87,7 @@ public class   ContrNazController {
     public List getoperatori() {
         return Filtri.getOperatori();
     }
-    
+
 
     /**
      * Metodo per gestire la richiesta GET alla rotta "/statistiche", restituendo le statistiche

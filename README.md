@@ -35,7 +35,7 @@ Per la documentazione delle classi con i vari metodi spiegati nel dettaglio fare
 
 ## Richieste GET e POST gestite
 E' possibile effettuare le richieste ***GET*** e ***POST*** , dopo aver avviato il progetto, all'indirizzo :
- `http://localhost:8080/`
+ `http://localhost:8080`
 
 ### Richieste GET
 Le richieste GET di questa applicazione sono:
@@ -60,7 +60,7 @@ A differenza dalle richieste GET precedenti dunque,  queste aggiungono il filtra
 Un filtro, in questo caso, è utile a farci restituire i dati (o le statistiche) filtrati a seconda delle nostre esigenze.
 
 #### Sintassi filtro
-Il filtro va inserito nel body con il seguente formato: 
+Il filtro va inserito nel body della richiesta POST con il seguente formato: 
  
  `{"campo" : {"operatore" : riferimento}}`
  - In "campo" inserire il campo sul quale deve essere applicato il filtro; 
@@ -71,6 +71,30 @@ Il filtro va inserito nel body con il seguente formato:
  Non è possibile applicare più filtri contemporaneamente.
  Se si vuole utilizzare l'operatore  `$eq`si può usare un formato più compatto per il filtro, ovvero:
 {"campo":riferimento} = {"campo":{"$eq":riferimento}}
+
+### Statistiche implementate
+Le statistiche si dividono in statistiche numeriche e statistiche non numeriche.
+Statistiche numeriche:
+ - MEDIA (avg);
+ - MINIMO (min);
+ - MASSIMO (max);
+ - DEVIAZIONE STANDARD (devStd):
+ - SOMMA (sum);
+ - CONTEGGIO (count).
+Statistiche non numeriche:
+ - CONTA ELEMENTI UNINCI (contaElementiUnici);
+ - CONTEGGIO (count).
+
+### Operatori di filtaggio implementati
+ - $not : operatore di disuguaglianza;
+ - $in : operatore che verifica l'appartenenza;
+ - $nin : operatore di non appartenenza;
+ - $eq : operatore di uguaglianza;
+ - $gt : operatore maggiore (>);
+ - $gte : operatore maggiore o uguale (>=);
+ - $lt : operatore minore (<);
+ - $lte : operatore minore o uguale (<=);
+ - $bt : operatore compreso tra ( < . >);
 
 ### Esempi di richieste GET/POST
 Risultati ottenuti mediante Postman
@@ -95,4 +119,7 @@ Risultati ottenuti mediante Postman
 
 [localhost:8080/operatori](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/operatori.PNG)
 
+### Autori
 
+* **Denaldo Lapi** - [denaldo98](https://github.com/denaldo98)
+* **Antonio Politano** - [S1082351](https://github.com/S1082351)
