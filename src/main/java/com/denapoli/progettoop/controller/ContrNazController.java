@@ -2,6 +2,7 @@ package com.denapoli.progettoop.controller;
 
 import com.denapoli.progettoop.modello.ContributoNazione;
 import com.denapoli.progettoop.service.ContrNazService;
+import com.denapoli.progettoop.service.Filtri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.web.bind.annotation.*;
@@ -55,14 +56,14 @@ public class   ContrNazController {
 
 
     /**
-     * Metodo per gestire la richiesta GET alla rotta "/data/{id}" e ritorna il record del dataset di indice id
+     * Metodo per gestire la richiesta GET alla rotta "/data/{i}" e ritorna il record del dataset di indice i
      *
-     * @param id indice del record desiderato
-     * @return oggetto corrispondente all'id richiesto
+     * @param i indice del record desiderato
+     * @return oggetto corrispondente all'indice i
      */
-    @GetMapping("/data/{id}")
-    public ContributoNazione getContrNazId(@PathVariable int id) {
-        return service.getContrNaz(id);
+    @GetMapping("/data/{i}")
+    public ContributoNazione getContrNazId(@PathVariable int i) {
+        return service.getContrNaz(i);
     }
 
 
@@ -76,6 +77,17 @@ public class   ContrNazController {
         return service.getAnni();
     }
 
+
+    /**
+     * Metodo per gestire la richiesta GET alla rotta "/operatori", restituendo la lista degli operatori gestiti
+     *
+     * @return lista contenete gli operatori gestiti
+     */
+    @GetMapping("/operatori")
+    public List getoperatori() {
+        return Filtri.getOperatori();
+    }
+    
 
     /**
      * Metodo per gestire la richiesta GET alla rotta "/statistiche", restituendo le statistiche
