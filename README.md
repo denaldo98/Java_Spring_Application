@@ -75,7 +75,7 @@ Il filtro va inserito nel body della richiesta POST con il seguente formato:
 ### Statistiche implementate
 Le statistiche si dividono in statistiche numeriche e statistiche non numeriche.
 
-#####Statistiche numeriche:
+#### Statistiche numeriche:
  - MEDIA (avg);
  - MINIMO (min);
  - MASSIMO (max);
@@ -83,11 +83,11 @@ Le statistiche si dividono in statistiche numeriche e statistiche non numeriche.
  - SOMMA (sum);
  - CONTEGGIO (count).
  
-#####Statistiche non numeriche:
+#### Statistiche non numeriche:
  - CONTA ELEMENTI UNINCI (contaElementiUnici);
  - CONTEGGIO (count).
 
-###Operatori di filtraggio implementati
+### Operatori di filtraggio implementati:
  - $not : operatore di disuguaglianza;
  - $in : operatore che verifica l'appartenenza;
  - $nin : operatore di non appartenenza;
