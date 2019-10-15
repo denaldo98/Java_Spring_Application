@@ -121,6 +121,9 @@ Risultati ottenuti mediante Postman
 
 [localhost:8080/operatori](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/operatori.PNG)
 
+##Diagrammi UML
+Per i diagrammi UML visionare la cartella [Diagrammi UML](https://github.com/denaldo98/Progetto-Esame/tree/master/Diagrammi%20UML)
+
 ### Autori
 
 * **Denaldo Lapi** - [denaldo98](https://github.com/denaldo98)
