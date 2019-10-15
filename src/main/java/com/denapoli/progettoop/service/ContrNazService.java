@@ -29,7 +29,7 @@ public class ContrNazService {
     private final static String COMMA_DELIMITER = ";"; //separatore CSV
     static List<String> anni=new ArrayList<>(); //predispongo lista di stringhe per controllo campo contributi con anno
     private List<ContributoNazione> contributi = new ArrayList<>(); //lista di istanze della classe modellante
-    public Metadata metadata; //metadata
+    public Metadata metadata; //metadati
 
     /**
      * Costruttore per scaricare il dataset e fare il parsing del csv
@@ -157,11 +157,11 @@ public class ContrNazService {
     /**
      * Restituisce le statistiche relative ad un certo campo
      *
-     * @param fieldName nome del campo
+     * @param nomeCampo nome del campo
      * @return Map contenente le statistiche
      */
-    public Map getStatistiche(String fieldName) {
-        return  Statistiche.getTutteStatistiche(fieldName, getValoriCampo (fieldName));
+    public Map getStatistiche(String nomeCampo) {
+        return  Statistiche.getTutteStatistiche(nomeCampo, getValoriCampo (nomeCampo));
     }
 
     /**
@@ -173,11 +173,11 @@ public class ContrNazService {
         Field[] fields = ContributoNazione.class.getDeclaredFields();// otteniamo l'elenco di tutti gli attributi della classe
         List<Map> list = new ArrayList<>(); //inizializzo lista di mappe che conterrà le statistiche
         for (Field f : fields) {
-            String fieldName = f.getName(); //f è l'oggetto di tipo fieldsName estrae il nome del campo corrente
-            if(fieldName.equals("contributo")) //gestione vettore di double contributo
+            String nomeCampo = f.getName(); //f è l'oggetto di tipo fieldsName estrae il nome del campo corrente
+            if(nomeCampo.equals("contributo")) //gestione vettore di double contributo
                 for(int i = 0; i< Utilities.intervalloAnni; i++)
                     list.add(getStatistiche(Integer.toString(2000+i) ));
-                else list.add(getStatistiche(fieldName)); //va ad aggiungere alla lista  la mappa che contiene le statistiche del campo fieldName
+                else list.add(getStatistiche(nomeCampo)); //va ad aggiungere alla lista  la mappa che contiene le statistiche del campo nomeCampo
         }
         return list;
     }

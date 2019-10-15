@@ -3,11 +3,11 @@
 Progetto d'esame per il corso di "Programmazione ad oggetti" a.a. 2018/2019 all'interno del corso di laurea di Ingegneria Informatica e dell'Automazione dell'Università Politecnica delle Marche.
 
 ## Introduzione
-In questa repository è presente un'applicazione Java basata sul framework Spring che restituisce tramite API REST GET o POST dati e statistiche in formato JSON di un dataset che assegnatoci. Il progetto può essere compilato attraverso il framework Gradle che gestisce l'importazione delle librerie Spring.
+Questa repository contiene un'applicazione Java basata sul framework Spring che restituisce tramite API REST GET o POST dati e statistiche in formato JSON di un dataset che assegnatoci. Il progetto può essere compilato attraverso il framework Gradle che gestisce l'importazione delle librerie Spring.
 
 
 ## Funzionamento all'avvio
-L'applicazione, una volta lanciata, esegue il download di un dataset in formato CSV contenuto in un JSON fornito tramite un [URL](http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA). Il download del dataset avviene solo se non è stato precedentemente effettuato e verrà salvato nella cartella del progetto con il nome di dataset.csv. Successivamente viene effettuato il *parsing* del file csv in modo da poter creare le istanze del modello che verranno inserite all'interno di una lista. Inoltre il programma avvia un web-server in locale sulla porta 8080 che riceve richieste dall'utente. 
+L'applicazione, una volta lanciata, esegue il download di un dataset in formato CSV contenuto in un JSON fornito tramite un [URL](http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA). Il download del dataset avviene solo se non è stato precedentemente effettuato e verrà salvato nella cartella del progetto con il nome di dataset.csv. Successivamente viene effettuato il *parsing* del file CSV in modo da poter creare le istanze del modello che verranno inserite all'interno di una lista. Inoltre il programma avvia un web-server in locale sulla porta 8080 che riceve richieste dall'utente. 
 
 ## Interpretazione modello e dati
 
@@ -28,10 +28,10 @@ Ulteriori informazioni sul dataset sono presenti a questo [link](https://webgate
 Il progetto presenta un package principale  `com.denapoli.progettoop`che contiene tutti i sorgenti delle classi Java e in particolare la classe main `ProgettoopApplication` che avvia il server Spring. Le altre classi sono divise in tre package:
 
 -   `modello`: contiene la classe  `ContributoNazione`che modella il singolo record del dataset;
--   `service`: contiene la classe  `ContrNazService`  che gestisce il download, il parsing e l'accesso al dataset, la classe  `Statistiche`per il calcolo delle statistiche numeriche e non,  la classe`Filtri`per la gestione del filtraggio dei dati, la classe `Metadata`per generare e restituire i metadati e la classe `Utilities` che contiene eventuali variabili utili ;
--   `controller`: contiene la classe  `ContrNazController`che gestisce le richieste dell'utente e converte le risposte da oggetti Java a stringhe in formato JSON;
+-   `service`: contiene la classe  `ContrNazService`  che gestisce il download, il parsing e l'accesso al dataset, la classe  `Statistiche`per il calcolo delle statistiche numeriche e non,  la classe`Filtri`per la gestione del filtraggio dei dati, la classe `Metadata`per generare e restituire i metadati e la classe `Utilities` che contiene eventuali variabili e metodi utili ;
+-   `controller`: contiene la classe  `ContrNazController`che gestisce richieste da parte dell'utente (risposte sottoforma di stringhe in formato JSON;
 
-Per la documentazione delle classi con i vari metodi spiegati nel dettaglio fare riferimento al JavaDoc.
+Visionae la JavaDoc per informazioni più specifiche su classi e relativi metodi.
 
 ## Richieste GET e POST gestite
 E' possibile effettuare le richieste ***GET*** e ***POST*** , dopo aver avviato il progetto, all'indirizzo :
@@ -74,18 +74,20 @@ Il filtro va inserito nel body della richiesta POST con il seguente formato:
 
 ### Statistiche implementate
 Le statistiche si dividono in statistiche numeriche e statistiche non numeriche.
-Statistiche numeriche:
+
+#####Statistiche numeriche:
  - MEDIA (avg);
  - MINIMO (min);
  - MASSIMO (max);
  - DEVIAZIONE STANDARD (devStd):
  - SOMMA (sum);
  - CONTEGGIO (count).
-Statistiche non numeriche:
+ 
+#####Statistiche non numeriche:
  - CONTA ELEMENTI UNINCI (contaElementiUnici);
  - CONTEGGIO (count).
 
-### Operatori di filtraggio implementati
+###Operatori di filtraggio implementati
  - $not : operatore di disuguaglianza;
  - $in : operatore che verifica l'appartenenza;
  - $nin : operatore di non appartenenza;
