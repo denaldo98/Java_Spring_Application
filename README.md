@@ -31,7 +31,7 @@ Il progetto presenta un package principale  `com.denapoli.progettoop`che contien
 -   `service`: contiene la classe  `ContrNazService`  che gestisce il download, il parsing e l'accesso al dataset, la classe  `Statistiche`per il calcolo delle statistiche numeriche e non,  la classe`Filtri`per la gestione del filtraggio dei dati, la classe `Metadata`per generare e restituire i metadati e la classe `Utilities` che contiene eventuali variabili e metodi utili ;
 -   `controller`: contiene la classe  `ContrNazController`che gestisce richieste da parte dell'utente (risposte sottoforma di stringhe in formato JSON;
 
-Visionae la JavaDoc per informazioni più specifiche su classi e relativi metodi.
+Visionare la JavaDoc per informazioni più specifiche su classi e relativi metodi.
 
 ## Richieste GET e POST gestite
 E' possibile effettuare le richieste ***GET*** e ***POST*** , dopo aver avviato il progetto, all'indirizzo :
