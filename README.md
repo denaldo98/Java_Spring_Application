@@ -1,4 +1,4 @@
-# Progetto esame OOP(Lapi-Politano)
+# Progetto esame Object-Oriented Programming
 
 Progetto d'esame per il corso di "Programmazione ad oggetti" a.a. 2018/2019 all'interno del corso di laurea di Ingegneria Informatica e dell'Automazione dell'Università Politecnica delle Marche.
 
