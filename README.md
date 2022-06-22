@@ -1,15 +1,15 @@
-
-
 # Progetto esame Object-Oriented Programming
 
-Progetto d'esame per il corso di "Programmazione ad oggetti" a.a. 2018/2019 all'interno del corso di laurea di Ingegneria Informatica e dell'Automazione dell'Università Politecnica delle Marche.
+Progetto d'esame per il corso di "Programmazione ad oggetti" a.a. 2018/2019 all'interno del corso di laurea di *Ingegneria Informatica e dell'Automazione* dell'*Università Politecnica delle Marche*.
 
 ## Introduzione
-Questa repository contiene un'applicazione Java basata sul framework Spring che restituisce tramite API REST GET o POST dati e statistiche in formato JSON di un dataset assegnatoci. Il progetto può essere compilato attraverso il framework Gradle che gestisce l'importazione delle librerie Spring.
+Questa repository contiene un'applicazione *Java* basata sul framework *Spring* che restituisce tramite API REST GET o POST dati e statistiche in formato JSON di un dataset assegnatoci. Il progetto può essere compilato attraverso il framework *Gradle* che gestisce l'importazione delle librerie *Spring*.
 
 
 ## Funzionamento all'avvio
-L'applicazione, una volta lanciata, esegue il download di un dataset in formato CSV contenuto in un JSON fornito tramite un [URL](http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA). Il download del dataset avviene solo se non è stato precedentemente effettuato e verrà salvato nella cartella del progetto con il nome di dataset.csv. Successivamente viene effettuato il *parsing* del file CSV in modo da poter creare le istanze del modello che verranno inserite all'interno di una lista. Inoltre il programma avvia un web-server in locale sulla porta 8080 che riceve richieste dall'utente. 
+L'applicazione, una volta lanciata, esegue il download di un dataset in formato CSV contenuto in un JSON fornito tramite un [URL](http://data.europa.eu/euodp/data/api/3/action/package_show?id=V7ZkhAQ536LhqVNfAeGA).
+Il download del dataset avviene solo se non è stato precedentemente effettuato e verrà salvato nella cartella del progetto con il nome di dataset.csv. Successivamente viene effettuato il *parsing* del file CSV in modo da poter creare le istanze del modello che verranno inserite all'interno di una lista. 
+Inoltre, il programma avvia un web-server in locale sulla porta 8080 che riceve richieste dall'utente. 
 
 ## Interpretazione modello e dati
 
@@ -33,7 +33,7 @@ Il progetto presenta un package principale  `com.denapoli.progettoop`che contien
 -   `service`: contiene la classe  `ContrNazService`  che gestisce il download, il parsing e l'accesso al dataset, la classe  `Statistiche`per il calcolo delle statistiche numeriche e non,  la classe`Filtri`per la gestione del filtraggio dei dati, la classe `Metadata`per generare e restituire i metadati e la classe `Utilities` che contiene eventuali variabili e metodi utili ;
 -   `controller`: contiene la classe  `ContrNazController`che gestisce richieste da parte dell'utente (risposte sottoforma di stringhe in formato JSON;
 
-Visionare la JavaDoc per informazioni più specifiche su classi e relativi metodi.
+Visionare la *JavaDoc* per informazioni più specifiche su classi e relativi metodi.
 
 ## Richieste GET e POST gestite
 E' possibile effettuare le richieste ***GET*** e ***POST*** , dopo aver avviato il progetto, all'indirizzo : `http://localhost:8080`
@@ -102,51 +102,70 @@ Le statistiche si dividono in statistiche numeriche e statistiche non numeriche.
 ### Esempi di richieste GET/POST
 Risultati ottenuti mediante Postman.
 
- - GET Anni 
+ - GET anni 
 ![anni](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Anni.PNG)
 
  - GET campo errato
 ![esempio campo errato](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Campo%20errato.PNG)
 
+ - POST contributo>20000
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Contributo_2000$gt_20000.PNG)
 
+ - GET data 1
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Dati%201.PNG)
 
+ - GET data
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Dati.PNG)
 
+ - GET metadata
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Metadati.PNG)
 
-
+  GET statistiche (freq)
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Statistiche%20freq.PNG)
 
+ - GET statistiche
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Statistiche.PNG)
 
+ - GET statistiche (2003)
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Stiatistiche%202003.PNG)
 
+ - GET operatori
 ![enter link description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/operatori.PNG)
 
-![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data.PNG)
 
 ## Diagrammi UML
 
-![Casi d'uso](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20casi%20d%27uso.PNG)(aaaaaaaaaaaaa)
-
+ - Casi d'uso
+![Casi d'uso](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20casi%20d%27uso.PNG)
+ 
+ - Classi
 ![Classi](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20delle%20classi.PNG)
 
+ - GET anni
 ![GET Anni](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Anni.PNG)
 
-![GET Data](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data-i.PNG)
+ - GET data
+![GET Data](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data.PNG)
 
+ - GET data(i)
+![GET Data(i)](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data-i.PNG)
+
+ - GET metadata
 ![GET Metadata](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Metadata.PNG)
 
+ - GET operatori
 ![GET Operatori](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Operatori.PNG)
 
+ - GET statistiche
 ![GET Statistiche](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Statistiche.PNG)
 
+ - GET statistiche dettagliato
 ![GET Statistiche dettagliato](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Statistiche%20dettagliato.PNG)
 
+ - POST data
 ![POST Data](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/POST%20Data.PNG)
 
+ - POST statistiche dettagliato
 ![POST Statistiche dettagliato](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/POST%20Statistiche%20dettagliato.PNG)
 
 ### Autori
