@@ -122,7 +122,8 @@ Risultati ottenuti mediante Postman
 ![enter link description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/operatori.PNG)![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data.PNG)
 
 ## Diagrammi UML
-![Casi d'uso](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20casi%20d%27uso.PNG)
+
+![Casi d'uso](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20casi%20d%27uso.PNG)(aaaaaaaaaaaaa)
 
 ![Classi](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20delle%20classi.PNG)
 
