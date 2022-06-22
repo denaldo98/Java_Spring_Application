@@ -134,38 +134,48 @@ Risultati ottenuti mediante Postman.
 
 
 ## Diagrammi UML
-
  - Casi d'uso
+ 
 ![Casi d'uso](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20casi%20d%27uso.PNG)
  
  - Classi
+ 
 ![Classi](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20delle%20classi.PNG)
 
- - GET anni
+ - GET anni 
+ 
 ![GET Anni](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Anni.PNG)
 
  - GET data
+ 
 ![GET Data](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data.PNG)
 
  - GET data(i)
+ 
 ![GET Data(i)](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data-i.PNG)
 
  - GET metadata
+
 ![GET Metadata](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Metadata.PNG)
 
  - GET operatori
+ 
 ![GET Operatori](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Operatori.PNG)
 
  - GET statistiche
+ 
 ![GET Statistiche](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Statistiche.PNG)
 
  - GET statistiche dettagliato
+ 
 ![GET Statistiche dettagliato](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Statistiche%20dettagliato.PNG)
 
  - POST data
+ 
 ![POST Data](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/POST%20Data.PNG)
 
  - POST statistiche dettagliato
+ 
 ![POST Statistiche dettagliato](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/POST%20Statistiche%20dettagliato.PNG)
 
 ### Autori
