@@ -100,29 +100,47 @@ Le statistiche si dividono in statistiche numeriche e statistiche non numeriche.
 
 ### Esempi di richieste GET/POST
 Risultati ottenuti mediante Postman
-![localhost:8080/anni](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Anni.PNG)
+![lanni](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Anni.PNG)
+
+![esempio campo errato](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Campo%20errato.PNG)
+
+![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Contributo_2000$gt_20000.PNG)
+
+![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Dati%201.PNG)
+
+![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Dati.PNG)
+
+![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Metadati.PNG)
 
 
-[localhost:8080/statistiche?campo=2021](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Campo%20errato.PNG) (esempio campo errato)
+![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Statistiche%20freq.PNG)
 
-[localhost:8080/data | body: {"2000" : {"$gt" : 20000}}](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Contributo_2000%24gt_20000.PNG)
+![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Statistiche.PNG)
 
-[localhost:8080/data/1](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Dati%201.PNG)
+![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Stiatistiche%202003.PNG)
 
-[localhost:8080/data](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Dati.PNG)
-
-[localhost:8080/metadata](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Metadati.PNG)
-
-[localhost:8080/statistiche?campo=freq](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Statistiche%20freq.PNG)
-
-[localhost:8080/statitiche](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Statistiche.PNG)
-
-[localhost:8080/statistiche?campo=2003](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Stiatistiche%202003.PNG)
-
-[localhost:8080/operatori](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/operatori.PNG)
+![enter link description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/operatori.PNG)![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data.PNG)
 
 ## Diagrammi UML
-Per i diagrammi UML visionare la cartella [Diagrammi UML](https://github.com/denaldo98/Progetto-Esame/tree/master/Diagrammi%20UML)
+![Casi d'uso](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20casi%20d%27uso.PNG)
+
+![Classi](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/Diagramma%20delle%20classi.PNG)
+
+![GET Anni](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Anni.PNG)
+
+![GET Data](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data-i.PNG)
+
+![GET Metadata](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Metadata.PNG)
+
+![GET Operatori](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Operatori.PNG)
+
+![GET Statistiche](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Statistiche.PNG)
+
+![GET Statistiche dettagliato](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Statistiche%20dettagliato.PNG)
+
+![POST Data](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/POST%20Data.PNG)
+
+![POST Statistiche dettagliato](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/POST%20Statistiche%20dettagliato.PNG)
 
 ### Autori
 
