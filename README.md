@@ -1,4 +1,5 @@
 
+
 # Progetto esame Object-Oriented Programming
 
 Progetto d'esame per il corso di "Programmazione ad oggetti" a.a. 2018/2019 all'interno del corso di laurea di Ingegneria Informatica e dell'Automazione dell'Università Politecnica delle Marche.
@@ -99,9 +100,12 @@ Le statistiche si dividono in statistiche numeriche e statistiche non numeriche.
  - $bt : operatore compreso tra ( < . >);
 
 ### Esempi di richieste GET/POST
-Risultati ottenuti mediante Postman
-![lanni](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Anni.PNG)
+Risultati ottenuti mediante Postman.
 
+ - GET Anni 
+![anni](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Anni.PNG)
+
+ - GET campo errato
 ![esempio campo errato](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Campo%20errato.PNG)
 
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Contributo_2000$gt_20000.PNG)
@@ -119,7 +123,9 @@ Risultati ottenuti mediante Postman
 
 ![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Stiatistiche%202003.PNG)
 
-![enter link description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/operatori.PNG)![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data.PNG)
+![enter link description here](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/operatori.PNG)
+
+![enter image description here](https://github.com/denaldo98/Progetto-OOP/blob/master/Diagrammi%20UML/GET%20Data.PNG)
 
 ## Diagrammi UML
 
