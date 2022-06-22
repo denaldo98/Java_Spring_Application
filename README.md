@@ -1,3 +1,4 @@
+
 # Progetto esame Object-Oriented Programming
 
 Progetto d'esame per il corso di "Programmazione ad oggetti" a.a. 2018/2019 all'interno del corso di laurea di Ingegneria Informatica e dell'Automazione dell'Università Politecnica delle Marche.
@@ -34,8 +35,7 @@ Il progetto presenta un package principale  `com.denapoli.progettoop`che contien
 Visionare la JavaDoc per informazioni più specifiche su classi e relativi metodi.
 
 ## Richieste GET e POST gestite
-E' possibile effettuare le richieste ***GET*** e ***POST*** , dopo aver avviato il progetto, all'indirizzo :
- `http://localhost:8080`
+E' possibile effettuare le richieste ***GET*** e ***POST*** , dopo aver avviato il progetto, all'indirizzo : `http://localhost:8080`
 
 ### Richieste GET
 Le richieste GET di questa applicazione sono:
@@ -100,8 +100,8 @@ Le statistiche si dividono in statistiche numeriche e statistiche non numeriche.
 
 ### Esempi di richieste GET/POST
 Risultati ottenuti mediante Postman
+![localhost:8080/anni](https://github.com/denaldo98/Progetto-OOP/blob/master/GET_POST_screens/Anni.PNG)
 
-[localhost:8080/anni](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Anni.PNG)
 
 [localhost:8080/statistiche?campo=2021](https://github.com/denaldo98/Progetto-Esame/blob/master/Screen/screen/Campo%20errato.PNG) (esempio campo errato)
 
